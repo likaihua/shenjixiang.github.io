@@ -1,0 +1,594 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  
+    <title>ehCache的使用 | 沈吉祥的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="沈吉祥">
+	<meta name="keywords" content="ehCache的使用,云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥">
+	<meta name="baidu-site-verification" content="SXTXec2rT4">
+	<meta name="alexaVerifyID" content="K3vQ9PS2ifPW0Nr7kp2PsGQ49hA"/>
+	<meta name="generator" content="沈吉祥的博客">
+    
+    <meta name="description" content="1.在开发高并发量，高性能的网站应用系统时，缓存Cache起到了非常重要的作用。本文主要介绍EHCache的使用，以及使用EHCache的实践经验。笔者使用过多种基于Java的开源Cache组件，其中包括OSCache、JBossCache、EHCache。OSCache功能强大，使用灵活，
+2.可">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="沈吉祥的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+	<link rel="index" title="ehCache的使用" href="/2014/04/29/ehcache-info/"> 
+    <link rel="home" title="沈吉祥的博客" href="http://www.shenjixiang.cn"> 
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="沈吉祥的博客">沈吉祥的博客</a></h1>
+				<h2 class="blog-motto">人生不应该是看得到未来的</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/" target="_self">主页</a></li>
+					
+						<li><a href="/archives" target="_self">全部文章</a></li>
+					
+						<li><a href="/resources" target="_self">资源共享</a></li>
+					
+						<li><a href="/photo" target="_self">相册</a></li>
+					
+						<li><a href="/about" target="_self">关于我</a></li>
+					
+						<li><a href="/say" target="_self">留言版</a></li>
+					
+					<li>
+					
+					</li>
+                <li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>
+
+				</ul>
+			</nav>	
+</div>
+
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		
+<header class="article-info clearfix">
+ 
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/29/ehcache-info/" title="ehCache的使用" itemprop="url">ehCache的使用</a>
+  </h1>
+  
+  <p class="article-author">作者：
+    
+      <a href="http://www.shenjixiang.cn" title="沈吉祥">沈吉祥</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-04-29T07:55:04.000Z" itemprop="datePublished">4月29 2014</time>&nbsp;
+    更新日期：<time datetime="2014-12-06T05:35:20.000Z" itemprop="dateModified">12月06 2014</time>
+    
+  </p>
+   
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		</div>
+		
+		<p>1.在开发高并发量，高性能的网站应用系统时，缓存Cache起到了非常重要的作用。本文主要介绍EHCache的使用，以及使用EHCache的实践经验。<br>笔者使用过多种基于Java的开源Cache组件，其中包括OSCache、JBossCache、EHCache。OSCache功能强大，使用灵活，</p>
+<p>2.可用于对象缓存、Filter缓存以及在JSP中直接使用cache标签。笔者在最近的使用过程中发现，在并发量较高时，OSCache会出现线程阻塞和数据错误，通过分析源代码发现是其内部实现的缺陷。JBossCache最大的优点是支持基于对象属性的集群同步，不过JBossCache的配置使用都较复杂，在并发量较高的情况下，对象属性数据在集群中同步也会加大系统的开销。</p>
+<p>以上两种Cache本文仅作简单介绍，不做深入探讨。</p>
+<p>3.EHCache是来自sourceforge（<a href="http://ehcache.sourceforge.net/）的开源项目，也是纯Java实现的简单、快速的Cache组件。" target="_blank" rel="external">http://ehcache.sourceforge.net/）的开源项目，也是纯Java实现的简单、快速的Cache组件。</a></p>
+<p>EHCache支持内存和磁盘的缓存，支持LRU、LFU和FIFO多种淘汰算法，支持分布式的Cache，可以作为Hibernate的缓存插件。</p>
+<p>4.同时它也能提供基于Filter的Cache，该Filter可以缓存响应的内容并采用Gzip压缩提高响应速度。</p>
+<p>EHCache API的基本用法</p>
+<p>首先介绍CacheManager类。它主要负责读取配置文件，默认读取CLASSPATH下的ehcache.xml，根据配置文件创建并管理Cache对象。</p>
+<p>// 使用默认配置文件创建CacheManager</p>
+<p>CacheManager manager = CacheManager.create();</p>
+<p>// 通过manager可以生成指定名称的Cache对象</p>
+<p>Cache cache = cache = manager.getCache(“demoCache”);</p>
+<p>// 使用manager移除指定名称的Cache对象</p>
+<p>manager.removeCache(“demoCache”);</p>
+<p>可以通过调用manager.removalAll()来移除所有的Cache。通过调用manager的shutdown()方法可以关闭CacheManager。</p>
+<p>有了Cache对象之后就可以进行一些基本的Cache操作，例如：</p>
+<p>//往cache中添加元素</p>
+<p>Element element = new Element(“key”, “value”);</p>
+<p>cache.put(element);</p>
+<p>//从cache中取回元素</p>
+<p>Element element = cache.get(“key”);</p>
+<p>element.getValue();</p>
+<p>//从Cache中移除一个元素</p>
+<p>cache.remove(“key”);</p>
+<p>可以直接使用上面的API进行数据对象的缓存，这里需要注意的是对于缓存的对象都是必须可序列化的。</p>
+<p>在下面的篇幅中笔者还会介绍EHCache和Spring、Hibernate的整合使用。</p>
+<p>&#61548; 配置文件</p>
+<p>配置文件ehcache.xml中命名为demoCache的缓存配置：</p>
+<p>maxElementsInMemory=”10000”</p>
+<p>eternal=”false”</p>
+<p>overflowToDisk=”true”</p>
+<p>timeToIdleSeconds=”300”</p>
+<p>timeToLiveSeconds=”600”</p>
+<p>memoryStoreEvictionPolic<wbr>y=”LFU” /&gt;</p>
+<p>各配置参数的含义：</p>
+<p>maxElementsInMemory：缓存中允许创建的最大对象数</p>
+<p>eternal：缓存中对象是否为永久的，如果是，超时设置将被忽略，对象从不过期。</p>
+<p>timeToIdleSeconds：缓存数据的钝化时间，也就是在一个元素消亡之前，两次访问时间的最大时间间隔值，这只能在元素不是永久驻留时有效，</p>
+<p>如果该值是 0 就意味着元素可以停顿无穷长的时间。</p>
+<p>timeToLiveSeconds：缓存数据的生存时间，也就是一个元素从构建到消亡的最大时间间隔值，这只能在元素不是永久驻留时有效，</p>
+<p>如果该值是0就意味着元素可以停顿无穷长的时间。</p>
+<p>overflowToDisk：内存不足时，是否启用磁盘缓存。</p>
+<p>memoryStoreEvictionPolic<wbr>y：缓存满了之后的淘汰算法。LRU和FIFO算法这里就不做介绍。</p>
+<p>LFU算法直接淘汰使用比较少的对象，在内存保留的都是一些经常访问的对象。对于大部分网站项目，该算法比较适用。</p>
+<p>如果应用需要配置多个不同命名并采用不同参数的Cache，可以相应修改配置文件，增加需要的Cache配置即可。</p>
+<p>利用Spring APO整合EHCache</p>
+<p>首先，在CLASSPATH下面放置ehcache.xml配置文件。在Spring的配置文件中先添加如下cacheManager配置：</p>
+<p>class=”org.springframework.cache.ehcache.EhCacheManagerFactoryBea<wbr>n”&gt;</p>
+<p>配置demoCache：</p>
+<p>demoCache</p>
+<p>接下来，写一个实现org.aopalliance.intercept.MethodInterceptor接口的拦截器类。</p>
+<p>有了拦截器就可以有选择性的配置想要缓存的 bean 方法。如果被调用的方法配置为可缓存，拦截器将为该方法生成 cache key<br>并检查该方法返回的结果是否已缓存。</p>
+<p>如果已缓存，就返回缓存的结果，否则再次执行被拦截的方法，并缓存结果供下次调用。具体代码如下：<br><code><br>public class MethodCacheInterceptor implements<br>MethodInterceptor,</code></p>
+<p>InitializingBean {</p>
+<p>private Cache cache;</p>
+<p>public void setCache(Cache cache) {</p>
+<p>this.cache = cache;</p>
+<p>}<br>public void afterPropertiesSet() throws Exception {</p>
+<p>Assert.notNull(cache,</p>
+<p>“A cache is required. Use setCache(Cache) to provide one.”);</p>
+<p>}</p>
+<p>public Object invoke(MethodInvocation invocation) throws Throwable<br>{</p>
+<p>String targetName =<br>invocation.getThis().getClass().getName();</p>
+<p>String methodName = invocation.getMethod().getName();</p>
+<p>Object[] arguments = invocation.getArguments();</p>
+<p>Object result;</p>
+<p>String cacheKey = getCacheKey(targetName, methodName,<br>arguments);</p>
+<p>Element element = null;</p>
+<p>synchronized (this){</p>
+<p>element = cache.get(cacheKey);</p>
+<p>if (element == null) {</p>
+<p>//调用实际的方法</p>
+<p>result = invocation.proceed();</p>
+<p>element = new Element(cacheKey, (Serializable) result);</p>
+<p>cache.put(element);</p>
+<p>}</p>
+<p>}</p>
+<p>return element.getValue();</p>
+<p>}</p>
+<p>private String getCacheKey(String targetName, String<br>methodName,</p>
+<p>Object[] arguments) {</p>
+<p>StringBuffer sb = new StringBuffer();</p>
+<p>sb.append(targetName).append(“.”).append(methodName);</p>
+<p>if ((arguments != null) &amp;&amp; (arguments.length != 0)) {<br>for (int i = 0; i &lt; arguments.length; i++) {<br>sb.append(“.”).append(arguments[i]);<br>}<br>}<br>return sb.toString();<br>}<br>}<br><br>synchronized<br>(this)这段代码实现了同步功能。为什么一定要同步？Cache对象本身的get和put操作是同步的。</p>
+<p>如果我们缓存的数据来自数据库查询，在没有这段同步代码时，当key不存在或者key对应的对象已经过期时，</p>
+<p>在多线程并发访问的情况下，许多线程都会重新执行该方法，由于对数据库进行重新查询代价是比较昂贵的，</p>
+<p>而在瞬间大量的并发查询，会对数据库服务器造成非常大的压力。所以这里的同步代码是很重要的。</p>
+<p>接下来，继续完成拦截器和Bean的配置：</p>
+<p>.*myMethod</p>
+<p>class=”com.xiebing.ehcache.spring.MyServiceBean”&gt;</p>
+<p>methodCachePointCut</p>
+<p>其中myServiceBean是实现了业务逻辑的Bean，里面的方法myMethod()的返回结果需要被缓存。</p>
+<p>这样每次对myServiceBean的myMethod()方法进行调用,都会首先从缓存中查找,其次才会查询数据库。</p>
+<p>使用AOP的方式极大地提高了系统的灵活性，通过修改配置文件就可以实现对方法结果的缓存，所有的对Cache的操作都封装在了拦截器的实现中。</p>
+<p>CachingFilter功能</p>
+<p>使用Spring的AOP进行整合，可以灵活的对方法的的返回结果对象进行缓存。CachingFilter功能可以对HTTP响应的内容进行缓存。</p>
+<p>这种方式缓存数据的粒度比较粗，例如缓存整张页面。它的优点是使用简单、效率高，缺点是不够灵活，可重用程度不高。</p>
+<p>EHCache使用SimplePageCachingFilter类实现Filter缓存。该类继承自CachingFilter，有默认产生cache<br>key的calculateKey()方法，该方法使用HTTP请求的URI和查询条件来组成key。</p>
+<p>也可以自己实现一个Filter，同样继承CachingFilter类,然后覆写calculateKey()方法，生成自定义的key。</p>
+<p>在笔者参与的项目中很多页面都使用AJAX，为保证JS请求的数据不被浏览器缓存，每次请求都会带有一个随机数参数i。</p>
+<p>如果使用SimplePageCachingFilter，那么每次生成的key都不一样，缓存就没有意义了。这种情况下，我们就会覆写calculateKey()方法。</p>
+<p>要使用SimplePageCachingFilter，首先在配置文件ehcache.xml中，增加下面的配置：</p>
+<p>overflowToDisk=”false” timeToIdleSeconds=”300”<br>timeToLiveSeconds=”600”</p>
+<p>memoryStoreEvictionPolic<wbr>y=”LFU” /&gt;</p>
+<p>其中name属性必须为SimplePageCachingFilter，修改web.xml文件，增加一个Filter的配置：</p>
+<p>SimplePageCachingFilter</p>
+<p>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</p>
+<p>SimplePageCachingFilter</p>
+<p>/test.jsp</p>
+<p>下面我们写一个简单的test.jsp文件进行测试，缓存后的页面每次刷新，在600秒内显示的时间都不会发生变化的。代码如下：</p>
+  
+	</div>
+		
+	<footer class="article-footer clearfix">
+	
+  <div class="article-tags">
+  
+  <span>标签：</span> <a href="/tags/web/">web</a>
+  </div>
+
+
+<div class="article-categories">
+  <span>分类：</span>
+  <a class="article-category-link" href="/categories/j2EE/">j2EE</a>
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>	
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>	
+    <a href="javascript:void(0);" 
+		class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" >更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"shenjixiang"},hideMore:true}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1937900" charset="utf-8"></script>      
+
+	
+	</div>
+	</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+	 <strong>上一篇：</strong>
+	<a href="/2014/04/29/spring-ioc-aop/" title="spring的IOC和AOP">
+	<span>spring的IOC和AOP</span>
+</a>
+</div>
+
+
+<div class="next">
+<strong>下一篇：</strong>
+<a href="/2014/04/13/extjs4-little/"  title="ext小知识点">
+ 
+ <span>ext小知识点
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<div class="article-comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="ehCache的使用" data-title="ehCache的使用" data-url="http://www.shenjixiang.cn/2014/04/29/ehcache-info/"></div>
+	<!-- 多说评论框 end -->
+
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shenjx"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = "/js/embed.js";
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+</div>  
+      
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	
+	<section class="author-info">
+		
+			<p> 个人的</p>
+		
+		
+			<p>	java技术分享博客</p>
+		
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/shenjixiang" target="_blank" title="weibo"></a>
+		
+				
+		
+		<a href="https://github.com/shenjixiang" target="_blank" title="github"></a>
+		
+		
+		
+		<a href="http://shenjixiang.cn" target="_blank" title="twitter"></a>
+		
+	</div>
+</div>
+<aside class="clearfix">
+
+
+  
+<div class="tagslist">
+	 <p class="asidetitle">赞助商</p> 
+	<a href="http://www.henghost.com/hc/index.html" target="_blank">
+		<img src='http://www.shenjixiang.cn/image/advertisement/hengchuang.jpg' />
+	</a>
+</div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">站内搜索</p>
+		<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank" style="margin-top:0.3em;">		
+			<input name="s" type="hidden" value="6391109077580778314" >
+			<input type="text"  name="q" size="30" placeholder="回车搜索"><br>
+		</form>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li class="categorieslist-li"><a href="/categories/HBase/" title="HBase">HBase<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Mahout/" title="Mahout">Mahout<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Pig/" title="Pig">Pig<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/extJs/" title="extJs">extJs<sup>5</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hadoop/" title="hadoop">hadoop<sup>6</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hive/" title="hive">hive<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/j2EE/" title="j2EE">j2EE<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/zookeeper/" title="zookeeper">zookeeper<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/主机/" title="主机">主机<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/分布式/" title="分布式">分布式<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/前段/" title="前段">前段<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/基础/" title="基础">基础<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/数据库/" title="数据库">数据库<sup>18</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">热评文章</h3>	
+		<div class="ds-top-threads" data-range="monthly" data-num-items="9">			
+		</div>	
+  </div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">最新评论</h3>
+     <div class="widget" style="margin-top:0.2em;">
+      <div class="ds-recent-comments" data-num-items="6" data-show-avatars="0" data-show-time="1" data-show-title="1" data-show-admin="0" data-excerpt-length="15"></div>
+  </div>
+  </div>
+
+
+  <div class="rsspart">
+	<p class="asidetitle">RSS</p>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	<p class="copyright">
+		<label>联系方式：1038342063@qq.com</label>
+	</P>
+	<p class="copyright">
+		<label><a href="http://zgboke.com" target="_blank" title="收录国内优秀独立博客！">中国博客联盟</a>&nbsp;|
+		<label><a href="http://lusongsong.com/" target="_blank">卢松松</a></label>&nbsp;|
+		<label><a href="http://www.wangwangkui.com/" target="_blank">王望奎博客</a></label>&nbsp;|
+		<label><a href="http://koubei.baidu.com/s/www.shenjixiang.cn" target="_blank" title="沈吉祥的百度口碑">我的百度口碑</a></label>&nbsp;|
+		<label><a href="http://zgboke.com/site/www.shenjixiang.cn.html" target="_blank" title="沈吉祥的博客联盟">我的博客联盟</a></label>&nbsp;|
+		<label><a href="http://tool.chinaz.com/" target="_blank" title="站长工具">站长工具</a></label>&nbsp;|
+		<label><a href="http://www.shenjixiang.cn/say" target="_blank" title="沈吉祥的留言">留言版</a></label>
+	</P>
+	<p class="copyright">版权所有&nbsp;©&nbsp;2014
+	Powered by  <a href="http://www.shenjixiang.cn/about" target="_blank" title="沈吉祥">沈吉祥</a>&nbsp;&nbsp;All Rights Reserved.
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"shenjx"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = "/js/embed.js";
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<!-- 百度统计 -->
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F19bb7b623acbcad20dbfc09ae6f0fd48' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+  </body>
+</html>

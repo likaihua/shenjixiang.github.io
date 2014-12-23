@@ -1,0 +1,519 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  
+    <title>hadoop MapReduce编写 | 沈吉祥的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="沈吉祥">
+	<meta name="keywords" content="hadoop MapReduce编写,云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥">
+	<meta name="baidu-site-verification" content="SXTXec2rT4">
+	<meta name="alexaVerifyID" content="K3vQ9PS2ifPW0Nr7kp2PsGQ49hA"/>
+	<meta name="generator" content="沈吉祥的博客">
+    
+    <meta name="description" content="安装ecilpse hadoop插件：
+
+下载hadoop-eclipse-plugin-1.1.2.jar放在eclipse plugins下.
+进入eclipse 打开window—&amp;gt;preferences里配置hadoop Map/Reduce里hadoop的安装路径（就是hadoop解">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="沈吉祥的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+	<link rel="index" title="hadoop MapReduce编写" href="/2014/08/13/hadoop-2/"> 
+    <link rel="home" title="沈吉祥的博客" href="http://www.shenjixiang.cn"> 
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="沈吉祥的博客">沈吉祥的博客</a></h1>
+				<h2 class="blog-motto">人生不应该是看得到未来的</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/" target="_self">主页</a></li>
+					
+						<li><a href="/archives" target="_self">全部文章</a></li>
+					
+						<li><a href="/resources" target="_self">资源共享</a></li>
+					
+						<li><a href="/photo" target="_self">相册</a></li>
+					
+						<li><a href="/about" target="_self">关于我</a></li>
+					
+						<li><a href="/say" target="_self">留言版</a></li>
+					
+					<li>
+					
+					</li>
+                <li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>
+
+				</ul>
+			</nav>	
+</div>
+
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		
+<header class="article-info clearfix">
+ 
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/13/hadoop-2/" title="hadoop MapReduce编写" itemprop="url">hadoop MapReduce编写</a>
+  </h1>
+  
+  <p class="article-author">作者：
+    
+      <a href="http://www.shenjixiang.cn" title="沈吉祥">沈吉祥</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-08-13T14:27:19.000Z" itemprop="datePublished">8月13 2014</time>&nbsp;
+    更新日期：<time datetime="2014-08-21T12:10:37.000Z" itemprop="dateModified">8月21 2014</time>
+    
+  </p>
+   
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装ecilpse_hadoop插件："><span class="toc-number">1.</span> <span class="toc-text">安装ecilpse hadoop插件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解MapReduce："><span class="toc-number">2.</span> <span class="toc-text">了解MapReduce：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce作业调优："><span class="toc-number">3.</span> <span class="toc-text">MapReduce作业调优：</span></a></li></ol>
+		</div>
+		
+		<h2 id="安装ecilpse_hadoop插件：">安装ecilpse hadoop插件：</h2>
+<ol>
+<li>下载hadoop-eclipse-plugin-1.1.2.jar放在eclipse plugins下.</li>
+<li>进入eclipse 打开window—&gt;preferences里配置hadoop Map/Reduce里hadoop的安装路径（就是hadoop解压后的文件目录，最后要的其实是jar包）</li>
+<li>如果在window里远程调用haodop集群编程，那么需重新编译hadoop解压后根目录的hadoop-core-1.1.2.jar（注释掉checkReturnValue方法），网上一般有人编译好的。</li>
+<li>打开 Map/Reduce Locations这个窗口，新建一个连接就可以连接dfs了。<br>（注意端口：Map/Reduce Master为：config/mapred-site.xml里的mapred.job.tracker的值，DFS Master:为config/core-site.xml里fs.default.name的值）。</li>
+<li>注意必须将config/hdfs-site.xml/里dfs.permissions设置为false才能够连接上。（如遇其他问题，请百度）</li>
+<li>新建一个map/reduce项目，放入hadoop自带的wordcount就可以运行了。</li>
+</ol>
+<h2 id="了解MapReduce：">了解MapReduce：</h2>
+<ol>
+<li>MapReduce:编程模型，主要用来做数据分析.<br>执行流程：<br>用户程序代码<br>——》Inputformat(默认TextInputformat，针对文本文件。作用：分解数据，切分成小数据集InputSplit<key,value>,key:行在文本中的位置，value:每一行的数据,一个InputSplit由一个mapper处理)<br>——》map（自己编写的程序代码）<br>——》（combine）（map段合并，减少机架间数据的传输）<br>——》partition(Mapper最终处理的键值对<key, value="">，是需要送到Reducer去合并的，合并的时候，<br>有相同key的键/值对会送到同一个Reducer那。哪个key到哪个Reducer的分配过程，是由Partitioner规定的。它只有一个方法(getPartition(Text key, Text value, int numPartitions))<br>输入是Map的结果对<key, value="">和Reducer的数目，输出则是分配的Reducer（整数编号）。<br>就是指定Mappr输出的键值对到哪一个reducer上去。<br>系统缺省的Partitioner是HashPartitioner，它以key的Hash值对Reducer的数目取模，得到对应的Reducer。<br>这样保证如果有相同的key值，肯定被分配到同一个reducre上。如果有N个reducer，编号就为0,1,2,3……(N-1)。)<br>——》copy&amp;merge<br>——》sort<br>——》reduce（如果没自定义partition，默认相同key的会被送到一个reduce上）——》outputformat（输出）</key,></key,></key,value></li>
+<li>复杂的map,reduce函数<br>MapReduce分为：map和reduce，那么分别对应map task和reduce task，一般我们自己写的map类继承Mapper类，重写map方法来编写我们对数据的处理，数据格式为<key,value>,key为当前这行数据在文本中的偏移量，value为当前这一行的数据。<br>一般我们重写Mapper类的map方法，特殊需要可重写setup(task启动之前调用，可以设置一些全局变量，初始化，监控task启动),<br>cleanup(task结束之前调用),run(真正调用map的方法)方法.</key,value></li>
+<li><p>MapReduce job中共享全局变量<br>由于map和reduce都是相对独立的，并且是跨jvm的，所以通过代码级别的共享是不能过做的。以下提供几种方法：<br>第一种：读取hdfs文件，可以事先约定好一个文件，都去读取，来时变量共享。这样变量即可读也可写，但需注意并发写的时候。但这样无疑增加了I/O操作。<br>第二种：设置job属性,通过config.set(“myName”, “shenjixiang”);//在config中设置全局变量。<br>config.get(“myName”);//取得在config中设置的全局变量。这种在小数据可行且消耗资源小，但大数据量就有点乏力了。<br>第三种：使用DistributedCache(是mapreduce为mapreduce提供的缓存文件的只读工具)，可以缓存文本文件、压缩文件和jar文件等。</p>
+</li>
+<li><p>hadoop job Scheduler:<br>hadoop默认的调度器是基于队列的fifo调度器。<br>所有用户的作业都被提交到一个队列中，jobtracker按照先后优先级高低，再按照提交时间先后执行。<br>优点：调度算法简单明了，jobtrscker工作负担轻。<br>缺点：忽略了不同作业的需求差异。<br>hadoop有自己的io机制，io类都必须实现Wridtable接口.</p>
+</li>
+<li><p>jobTracker失败：很严重。用zookeeper来协作JobTracker<br>taskTracker失败：由于崩溃或运行过于缓慢，它会向JobTracker发送心跳<br>如果有未完成的作业，JobTracker会重新把这些任务分配给其他taskTracker.<br>即使taskTracker没有失败也可以被JobTracker列入黑名单。</p>
+</li>
+</ol>
+<h2 id="MapReduce作业调优：">MapReduce作业调优：</h2>
+<ol>
+<li>Mapreduce:在执行mapreduce之前，原数据将被分割成多个split,<br>每个split作为一个map任务的输入，在map执行过程中split会被分解成一个个记录(key-value对)，map会依次处理每一个记录。<br>一个1G的文件，会被分成16个64M的split并分配16个map任务处理。而1000个100kb的文件会被1000个map处理。自定义输入格式：继承FileInputFormat,重写isSplitable(。。)</li>
+<li>重写getRecordReader()方法。输出：MultipleOutputFormat（一个reduce产生多个输出，用的多）TextOutputFormat：默认的输出（用的多）。</li>
+<li><p>小文件优化解决：<br>小文件合并、hadoop本身提共的压缩（gzip(用的多),bzip2,lzo(用的多)）<br>jvm重用   方法：开启jvm重用<br>mapred.reduce.parallel.copies    方法：默认5，修改20 </p>
+</li>
+<li><p>mapper的数量：尽量将输入数据切分成数据块的整数倍。<br>如有太多小文件，则考虑CombineFileInputFormat</p>
+</li>
+<li>redudcer的数量：集群中reducer数应该略小于reducer的任务数</li>
+<li>combiner:充分使用合并函数减少map和reduce之间传递的数据量，combiner在map后运行。</li>
+<li>中间值的压缩：conf.setCompressMapOutput(true)和setMapOutputCompressorClass(GzipCodec.class)</li>
+<li>自定义序列：如果使用自定义的Writable对象或自定义的comparator,则必须确保已实现RawComparator.</li>
+</ol>
+  
+	</div>
+		
+	<footer class="article-footer clearfix">
+	
+  <div class="article-tags">
+  
+  <span>标签：</span> <a href="/tags/hadoop/">hadoop</a>
+  </div>
+
+
+<div class="article-categories">
+  <span>分类：</span>
+  <a class="article-category-link" href="/categories/hadoop/">hadoop</a>
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>	
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>	
+    <a href="javascript:void(0);" 
+		class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" >更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"shenjixiang"},hideMore:true}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1937900" charset="utf-8"></script>      
+
+	
+	</div>
+	</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+	 <strong>上一篇：</strong>
+	<a href="/2014/08/19/hadoop-3/" title="第二代 MapReduce(Yarn)">
+	<span>第二代 MapReduce(Yarn)</span>
+</a>
+</div>
+
+
+<div class="next">
+<strong>下一篇：</strong>
+<a href="/2014/08/10/hadoop-1/"  title="hadoop伪分布式安装">
+ 
+ <span>hadoop伪分布式安装
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<div class="article-comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="hadoop MapReduce编写" data-title="hadoop MapReduce编写" data-url="http://www.shenjixiang.cn/2014/08/13/hadoop-2/"></div>
+	<!-- 多说评论框 end -->
+
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shenjx"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = "/js/embed.js";
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+</div>  
+      
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装ecilpse_hadoop插件："><span class="toc-number">1.</span> <span class="toc-text">安装ecilpse hadoop插件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解MapReduce："><span class="toc-number">2.</span> <span class="toc-text">了解MapReduce：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce作业调优："><span class="toc-number">3.</span> <span class="toc-text">MapReduce作业调优：</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	
+	<section class="author-info">
+		
+			<p> 个人的</p>
+		
+		
+			<p>	java技术分享博客</p>
+		
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/shenjixiang" target="_blank" title="weibo"></a>
+		
+				
+		
+		<a href="https://github.com/shenjixiang" target="_blank" title="github"></a>
+		
+		
+		
+		<a href="http://shenjixiang.cn" target="_blank" title="twitter"></a>
+		
+	</div>
+</div>
+<aside class="clearfix">
+
+
+  
+<div class="tagslist">
+	 <p class="asidetitle">赞助商</p> 
+	<a href="http://www.henghost.com/hc/index.html" target="_blank">
+		<img src='http://www.shenjixiang.cn/image/advertisement/hengchuang.jpg' />
+	</a>
+</div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">站内搜索</p>
+		<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank" style="margin-top:0.3em;">		
+			<input name="s" type="hidden" value="6391109077580778314" >
+			<input type="text"  name="q" size="30" placeholder="回车搜索"><br>
+		</form>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li class="categorieslist-li"><a href="/categories/HBase/" title="HBase">HBase<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Mahout/" title="Mahout">Mahout<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Pig/" title="Pig">Pig<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/extJs/" title="extJs">extJs<sup>5</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hadoop/" title="hadoop">hadoop<sup>6</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hive/" title="hive">hive<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/j2EE/" title="j2EE">j2EE<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/zookeeper/" title="zookeeper">zookeeper<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/主机/" title="主机">主机<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/分布式/" title="分布式">分布式<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/前段/" title="前段">前段<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/基础/" title="基础">基础<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/数据库/" title="数据库">数据库<sup>18</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">热评文章</h3>	
+		<div class="ds-top-threads" data-range="monthly" data-num-items="9">			
+		</div>	
+  </div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">最新评论</h3>
+     <div class="widget" style="margin-top:0.2em;">
+      <div class="ds-recent-comments" data-num-items="6" data-show-avatars="0" data-show-time="1" data-show-title="1" data-show-admin="0" data-excerpt-length="15"></div>
+  </div>
+  </div>
+
+
+  <div class="rsspart">
+	<p class="asidetitle">RSS</p>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	<p class="copyright">
+		<label>联系方式：1038342063@qq.com</label>
+	</P>
+	<p class="copyright">
+		<label><a href="http://zgboke.com" target="_blank" title="收录国内优秀独立博客！">中国博客联盟</a>&nbsp;|
+		<label><a href="http://lusongsong.com/" target="_blank">卢松松</a></label>&nbsp;|
+		<label><a href="http://www.wangwangkui.com/" target="_blank">王望奎博客</a></label>&nbsp;|
+		<label><a href="http://koubei.baidu.com/s/www.shenjixiang.cn" target="_blank" title="沈吉祥的百度口碑">我的百度口碑</a></label>&nbsp;|
+		<label><a href="http://zgboke.com/site/www.shenjixiang.cn.html" target="_blank" title="沈吉祥的博客联盟">我的博客联盟</a></label>&nbsp;|
+		<label><a href="http://tool.chinaz.com/" target="_blank" title="站长工具">站长工具</a></label>&nbsp;|
+		<label><a href="http://www.shenjixiang.cn/say" target="_blank" title="沈吉祥的留言">留言版</a></label>
+	</P>
+	<p class="copyright">版权所有&nbsp;©&nbsp;2014
+	Powered by  <a href="http://www.shenjixiang.cn/about" target="_blank" title="沈吉祥">沈吉祥</a>&nbsp;&nbsp;All Rights Reserved.
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"shenjx"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = "/js/embed.js";
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<!-- 百度统计 -->
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F19bb7b623acbcad20dbfc09ae6f0fd48' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+  </body>
+</html>

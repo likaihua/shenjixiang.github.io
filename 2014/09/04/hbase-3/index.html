@@ -1,0 +1,508 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  
+    <title>hbase客户端操作 | 沈吉祥的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="沈吉祥">
+	<meta name="keywords" content="hbase客户端操作,云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥">
+	<meta name="baidu-site-verification" content="SXTXec2rT4">
+	<meta name="alexaVerifyID" content="K3vQ9PS2ifPW0Nr7kp2PsGQ49hA"/>
+	<meta name="generator" content="沈吉祥的博客">
+    
+    <meta name="description" content="Rest和Thrift接口
+
+hbase的rest和thrift接口支持xml、protobuf、和二进制数据编码等操作
+
+java API
+
+大体包括：hbase自身管理部分、avro部分、hbase客户端部分、mapreduce部分、rest部分、thrift部分、zookeeper等等。
+使用">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="沈吉祥的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+	<link rel="index" title="hbase客户端操作" href="/2014/09/04/hbase-3/"> 
+    <link rel="home" title="沈吉祥的博客" href="http://www.shenjixiang.cn"> 
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="沈吉祥的博客">沈吉祥的博客</a></h1>
+				<h2 class="blog-motto">人生不应该是看得到未来的</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/" target="_self">主页</a></li>
+					
+						<li><a href="/archives" target="_self">全部文章</a></li>
+					
+						<li><a href="/resources" target="_self">资源共享</a></li>
+					
+						<li><a href="/photo" target="_self">相册</a></li>
+					
+						<li><a href="/about" target="_self">关于我</a></li>
+					
+						<li><a href="/say" target="_self">留言版</a></li>
+					
+					<li>
+					
+					</li>
+                <li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>
+
+				</ul>
+			</nav>	
+</div>
+
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		
+<header class="article-info clearfix">
+ 
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/04/hbase-3/" title="hbase客户端操作" itemprop="url">hbase客户端操作</a>
+  </h1>
+  
+  <p class="article-author">作者：
+    
+      <a href="http://www.shenjixiang.cn" title="沈吉祥">沈吉祥</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-09-04T14:23:13.000Z" itemprop="datePublished">9月04 2014</time>&nbsp;
+    更新日期：<time datetime="2014-09-08T15:52:33.000Z" itemprop="dateModified">9月08 2014</time>
+    
+  </p>
+   
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rest和Thrift接口"><span class="toc-number">1.</span> <span class="toc-text">Rest和Thrift接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java_API"><span class="toc-number">2.</span> <span class="toc-text">java API</span></a></li></ol>
+		</div>
+		
+		<h2 id="Rest和Thrift接口">Rest和Thrift接口</h2>
+<ul>
+<li>hbase的rest和thrift接口支持xml、protobuf、和二进制数据编码等操作</li>
+</ul>
+<h2 id="java_API">java API</h2>
+<ul>
+<li>大体包括：hbase自身管理部分、avro部分、hbase客户端部分、mapreduce部分、rest部分、thrift部分、zookeeper等等。<br><img src="http://www.shenjixiang.cn/image/hbase/hbaseJavaAPI.jpg" alt="hbaseJavaAPI"></li>
+<li>使用Eclipse开发HBase<ul>
+<li>第三方访问hbase时，首先需访问zookeeper，因为hbase重要信息保存在zookeeper中，而zookeeper集群是由hbase-site.xml指定的，所以需找到hbase-site.xml文件。通过classpath来指定</li>
+<li>将所需jar包（hbase的lib目录下全部加上hadoop-core-1.x.jar，window下注意fileUtil类去掉check），拷贝hbse-site.xml到项目目录下，在libraries里点add class folder选择hbase-site.xml目录</li>
+<li>列子：输入hdfs上的两个文件，采用mapReduce统计，输出结果到Hbase中。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.HBaseConfiguration;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.HColumnDescriptor;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.HTableDescriptor;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.HBaseAdmin;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableOutputFormat;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableReducer;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.util.Bytes;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.NullWritable;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.TextInputFormat;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HBaseWordCount</span> </span>{	</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Map</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>{</div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span>(LongWritable key, Text value, Context context)</div><div class="line">			<span class="keyword">throws</span> IOException, InterruptedException {</div><div class="line">		String[] s = value.toString().trim().split(<span class="string">" "</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">for</span> (String str : s) {</div><div class="line">			context.write(<span class="keyword">new</span> Text(str), <span class="keyword">new</span> IntWritable(<span class="number">1</span>));</div><div class="line">		}</div><div class="line">	}</div><div class="line">}	</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Reduce</span> <span class="keyword">extends</span> <span class="title">TableReducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">NullWritable</span>&gt;</span>{</div><div class="line">	<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span>(Text key, Iterable&lt;IntWritable&gt; values,Context context)</div><div class="line">			<span class="keyword">throws</span> IOException, InterruptedException {</div><div class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</div><div class="line">		<span class="keyword">for</span> (IntWritable i : values) {</div><div class="line">			sum+=i.get();</div><div class="line">		}</div><div class="line">		Put put= <span class="keyword">new</span> Put(Bytes.toBytes(key.toString()));</div><div class="line">		<span class="comment">//列族为content，修饰符为count，列值数目</span></div><div class="line">		put.add(Bytes.toBytes(<span class="string">"content"</span>),Bytes.toBytes(<span class="string">"count"</span>),Bytes.toBytes(String.valueOf(sum)));</div><div class="line">		context.write(NullWritable.get(), put);</div><div class="line">	}		</div><div class="line">}	</div><div class="line"><span class="annotation">@SuppressWarnings</span>({ <span class="string">"deprecation"</span>, <span class="string">"resource"</span> })</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createHBaseTable</span>(String table) <span class="keyword">throws</span> Exception{</div><div class="line">	HTableDescriptor htd = <span class="keyword">new</span> HTableDescriptor(table);</div><div class="line">	HColumnDescriptor col = <span class="keyword">new</span> HColumnDescriptor(<span class="string">"content"</span>);</div><div class="line">	htd.addFamily(col);</div><div class="line">	HBaseConfiguration config = <span class="keyword">new</span> HBaseConfiguration();</div><div class="line">	HBaseAdmin admin = <span class="keyword">new</span> HBaseAdmin(config);</div><div class="line">	<span class="keyword">if</span>(admin.tableExists(table)){</div><div class="line">		System.out.println(<span class="string">"table:'"</span>+table+<span class="string">"' exits"</span>);</div><div class="line">		admin.disableTable(table);</div><div class="line">		admin.deleteTable(table);</div><div class="line">	}</div><div class="line">	System.out.println(<span class="string">"create '"</span>+table+<span class="string">"' table"</span>);</div><div class="line">	admin.createTable(htd);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) <span class="keyword">throws</span> Exception {</div><div class="line">	String tableName = <span class="string">"wordcount"</span>;</div><div class="line">	Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">	conf.set(TableOutputFormat.OUTPUT_TABLE, tableName);</div><div class="line">	createHBaseTable(tableName);		</div><div class="line">	Job job = <span class="keyword">new</span> Job(conf,<span class="string">"wordcount table with "</span>+args[<span class="number">0</span>]);</div><div class="line">	job.setJarByClass(HBaseWordCount.class);</div><div class="line">	job.setNumReduceTasks(<span class="number">3</span>);</div><div class="line">	job.setMapperClass(Map.class);</div><div class="line">	job.setReducerClass(Reduce.class);</div><div class="line">	job.setMapOutputKeyClass(Text.class);</div><div class="line">	job.setMapOutputValueClass(IntWritable.class);</div><div class="line">	job.setInputFormatClass(TextInputFormat.class);</div><div class="line">	job.setOutputFormatClass(TableOutputFormat.class);</div><div class="line">	FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]));</div><div class="line">	System.exit(job.waitForCompletion(<span class="keyword">true</span>)?<span class="number">0</span>:<span class="number">1</span>);</div><div class="line">}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+  
+	</div>
+		
+	<footer class="article-footer clearfix">
+	
+  <div class="article-tags">
+  
+  <span>标签：</span> <a href="/tags/HBase/">HBase</a>
+  </div>
+
+
+<div class="article-categories">
+  <span>分类：</span>
+  <a class="article-category-link" href="/categories/HBase/">HBase</a>
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>	
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>	
+    <a href="javascript:void(0);" 
+		class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" >更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"shenjixiang"},hideMore:true}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1937900" charset="utf-8"></script>      
+
+	
+	</div>
+	</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+	 <strong>上一篇：</strong>
+	<a href="/2014/09/09/mahout-1/" title="Mahout了解及配置">
+	<span>Mahout了解及配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<strong>下一篇：</strong>
+<a href="/2014/09/03/hbase-2/"  title="hbase体系结构">
+ 
+ <span>hbase体系结构
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<div class="article-comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="hbase客户端操作" data-title="hbase客户端操作" data-url="http://www.shenjixiang.cn/2014/09/04/hbase-3/"></div>
+	<!-- 多说评论框 end -->
+
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shenjx"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = "/js/embed.js";
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+</div>  
+      
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rest和Thrift接口"><span class="toc-number">1.</span> <span class="toc-text">Rest和Thrift接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java_API"><span class="toc-number">2.</span> <span class="toc-text">java API</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	
+	<section class="author-info">
+		
+			<p> 个人的</p>
+		
+		
+			<p>	java技术分享博客</p>
+		
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/shenjixiang" target="_blank" title="weibo"></a>
+		
+				
+		
+		<a href="https://github.com/shenjixiang" target="_blank" title="github"></a>
+		
+		
+		
+		<a href="http://shenjixiang.cn" target="_blank" title="twitter"></a>
+		
+	</div>
+</div>
+<aside class="clearfix">
+
+
+  
+<div class="tagslist">
+	 <p class="asidetitle">赞助商</p> 
+	<a href="http://www.henghost.com/hc/index.html" target="_blank">
+		<img src='http://www.shenjixiang.cn/image/advertisement/hengchuang.jpg' />
+	</a>
+</div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">站内搜索</p>
+		<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank" style="margin-top:0.3em;">		
+			<input name="s" type="hidden" value="6391109077580778314" >
+			<input type="text"  name="q" size="30" placeholder="回车搜索"><br>
+		</form>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li class="categorieslist-li"><a href="/categories/HBase/" title="HBase">HBase<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Mahout/" title="Mahout">Mahout<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Pig/" title="Pig">Pig<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/extJs/" title="extJs">extJs<sup>5</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hadoop/" title="hadoop">hadoop<sup>6</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hive/" title="hive">hive<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/j2EE/" title="j2EE">j2EE<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/zookeeper/" title="zookeeper">zookeeper<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/主机/" title="主机">主机<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/分布式/" title="分布式">分布式<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/前段/" title="前段">前段<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/基础/" title="基础">基础<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/数据库/" title="数据库">数据库<sup>18</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">热评文章</h3>	
+		<div class="ds-top-threads" data-range="monthly" data-num-items="9">			
+		</div>	
+  </div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">最新评论</h3>
+     <div class="widget" style="margin-top:0.2em;">
+      <div class="ds-recent-comments" data-num-items="6" data-show-avatars="0" data-show-time="1" data-show-title="1" data-show-admin="0" data-excerpt-length="15"></div>
+  </div>
+  </div>
+
+
+  <div class="rsspart">
+	<p class="asidetitle">RSS</p>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	<p class="copyright">
+		<label>联系方式：1038342063@qq.com</label>
+	</P>
+	<p class="copyright">
+		<label><a href="http://zgboke.com" target="_blank" title="收录国内优秀独立博客！">中国博客联盟</a>&nbsp;|
+		<label><a href="http://lusongsong.com/" target="_blank">卢松松</a></label>&nbsp;|
+		<label><a href="http://www.wangwangkui.com/" target="_blank">王望奎博客</a></label>&nbsp;|
+		<label><a href="http://koubei.baidu.com/s/www.shenjixiang.cn" target="_blank" title="沈吉祥的百度口碑">我的百度口碑</a></label>&nbsp;|
+		<label><a href="http://zgboke.com/site/www.shenjixiang.cn.html" target="_blank" title="沈吉祥的博客联盟">我的博客联盟</a></label>&nbsp;|
+		<label><a href="http://tool.chinaz.com/" target="_blank" title="站长工具">站长工具</a></label>&nbsp;|
+		<label><a href="http://www.shenjixiang.cn/say" target="_blank" title="沈吉祥的留言">留言版</a></label>
+	</P>
+	<p class="copyright">版权所有&nbsp;©&nbsp;2014
+	Powered by  <a href="http://www.shenjixiang.cn/about" target="_blank" title="沈吉祥">沈吉祥</a>&nbsp;&nbsp;All Rights Reserved.
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"shenjx"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = "/js/embed.js";
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<!-- 百度统计 -->
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F19bb7b623acbcad20dbfc09ae6f0fd48' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,522 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  
+    <title>MySQL海量数据优化策略总结 | 沈吉祥的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="沈吉祥">
+	<meta name="keywords" content="MySQL海量数据优化策略总结,云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥">
+	<meta name="baidu-site-verification" content="SXTXec2rT4">
+	<meta name="alexaVerifyID" content="K3vQ9PS2ifPW0Nr7kp2PsGQ49hA"/>
+	<meta name="generator" content="沈吉祥的博客">
+    
+    <meta name="description" content="优化事项
+
+对查询来说，切记避免全表扫描！！！
+
+
+对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。
+避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描， 如：select id from t wh">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="沈吉祥的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+	<link rel="index" title="MySQL海量数据优化策略总结" href="/2014/10/28/mysqlMajor/"> 
+    <link rel="home" title="沈吉祥的博客" href="http://www.shenjixiang.cn"> 
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="沈吉祥的博客">沈吉祥的博客</a></h1>
+				<h2 class="blog-motto">人生不应该是看得到未来的</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/" target="_self">主页</a></li>
+					
+						<li><a href="/archives" target="_self">全部文章</a></li>
+					
+						<li><a href="/resources" target="_self">资源共享</a></li>
+					
+						<li><a href="/photo" target="_self">相册</a></li>
+					
+						<li><a href="/about" target="_self">关于我</a></li>
+					
+						<li><a href="/say" target="_self">留言版</a></li>
+					
+					<li>
+					
+					</li>
+                <li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>
+
+				</ul>
+			</nav>	
+</div>
+
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		
+<header class="article-info clearfix">
+ 
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/28/mysqlMajor/" title="MySQL海量数据优化策略总结" itemprop="url">MySQL海量数据优化策略总结</a>
+  </h1>
+  
+  <p class="article-author">作者：
+    
+      <a href="http://www.shenjixiang.cn" title="沈吉祥">沈吉祥</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-10-28T13:23:39.000Z" itemprop="datePublished">10月28 2014</time>&nbsp;
+    更新日期：<time datetime="2014-12-20T08:05:07.000Z" itemprop="dateModified">12月20 2014</time>
+    
+  </p>
+   
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化事项"><span class="toc-number">1.</span> <span class="toc-text">优化事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化方法总结"><span class="toc-number">2.</span> <span class="toc-text">优化方法总结</span></a></li></ol>
+		</div>
+		
+		<h3 id="优化事项">优化事项</h3>
+<ul>
+<li><strong>对查询来说，切记避免全表扫描！！！</strong></li>
+</ul>
+<ol>
+<li>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</li>
+<li>避免在 where 子句中对字段进行 <codei>null</codei> 值判断，否则将导致引擎放弃使用索引而进行全表扫描，<br> 如：select id from t where num is null<br>　　可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：<br>　　select id from t where num=0</li>
+<li>避免在 where 子句中使用 <codei>!=</codei>、<codei>&lt;&gt; </codei>、<codei>or </codei>、<codei>in </codei>、<codei>not in </codei>、<codei>like</codei>操作符，否则将引擎放弃使用索引而进行全表扫描。<br> 如：select id from t where num=10 or num=20<br>　　可以这样查询：<br>　　select id from t where num=10<br>　　union all<br>　　select id from t where num=20</li>
+<li>应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：<br>　　如：select id from t where substring(name,1,3)=’abc’ —name以abc开头的id　<br>　　应改为:<br>　　select id from t where name like ‘abc%’</li>
+<li>不要在 where 子句中的<codei>=</codei>左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</li>
+<li>很多时候用 exists 代替 in 是一个好的选择：<br>　　select num from a where num in(select num from b)<br>　　用下面的语句替换：<br>　　select num from a where exists(select 1 from b where num=a.num)</li>
+<li><codei>索引并不是越多越好</codei>，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引。一个表的索引数最好不要超过6个。</li>
+<li>应尽可能的避免更新 clustered（聚集索引，索引可分聚集和非聚集索引） 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</li>
+<li>尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</li>
+<li>尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</li>
+<li>避免频繁创建和删除临时表，以减少系统表资源的消耗。</li>
+<li>在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。</li>
+<li>如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。</li>
+<li>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</li>
+<li>在所有的存储过程和触发器的开始处设置 SET NOCOUNT ON ，在结束时设置 SET NOCOUNT OFF 。无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息。</li>
+<li>尽量避免大事务操作，提高系统并发能力。</li>
+<li>尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</li>
+</ol>
+<h3 id="优化方法总结">优化方法总结</h3>
+<ol>
+<li>使用索引来更快地遍历表。<br>缺省情况下建立的索引是非群集索引，但有时它并不是最佳的。在非群集索引下，数据在物理上随机存放在数据页上。合理的索引设计要建立在对各种查询的分析和预测上。一般来说：<br>a.有大量重复值、且经常有范围查询( &gt; ,&lt; ，&gt; =,&lt; =)和order by、group by发生的列，可考虑建立群集索引;<br>b.经常同时存取多列，且每列都含有重复值可考虑建立组合索引;<br>c.组合索引要尽量使关键查询形成索引覆盖，其前导列一定是使用最频繁的列。索引虽有助于提高性能但不是索引越多越好，恰好相反过多的索引会导致系统低效。用户在表中每加进一个索引，维护索引集合就要做相应的更新工作。</li>
+<li>任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边。</li>
+<li>IN、OR子句常会使用工作表，使索引失效。如果不产生大量重复值，可以考虑把子句拆开。拆开的子句中应该包含索引。</li>
+<li>只要能满足你的需求，应尽可能使用更小的数据类型：例如使用MEDIUMINT代替INT</li>
+<li>尽量把所有的列设置为NOT NULL，如果你要保存NULL，手动去设置它，而不是把它设为默认值。</li>
+<li>尽量少用VARCHAR、TEXT、BLOB类型</li>
+<li>如果你的数据只有你所知的少量的几个。最好使用ENUM类型</li>
+</ol>
+  
+	</div>
+		
+	<footer class="article-footer clearfix">
+	
+  <div class="article-tags">
+  
+  <span>标签：</span> <a href="/tags/数据库/">数据库</a>
+  </div>
+
+
+<div class="article-categories">
+  <span>分类：</span>
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>	
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>	
+    <a href="javascript:void(0);" 
+		class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" >更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"shenjixiang"},hideMore:true}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1937900" charset="utf-8"></script>      
+
+	
+	</div>
+	</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+	 <strong>上一篇：</strong>
+	<a href="/2014/10/28/ApacheMina/" title="Apache Mina 学习">
+	<span>Apache Mina 学习</span>
+</a>
+</div>
+
+
+<div class="next">
+<strong>下一篇：</strong>
+<a href="/2014/10/23/mysql-cluster/"  title="mysql集群搭建">
+ 
+ <span>mysql集群搭建
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<div class="article-comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="MySQL海量数据优化策略总结" data-title="MySQL海量数据优化策略总结" data-url="http://www.shenjixiang.cn/2014/10/28/mysqlMajor/"></div>
+	<!-- 多说评论框 end -->
+
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shenjx"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = "/js/embed.js";
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+</div>  
+      
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化事项"><span class="toc-number">1.</span> <span class="toc-text">优化事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化方法总结"><span class="toc-number">2.</span> <span class="toc-text">优化方法总结</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	
+	<section class="author-info">
+		
+			<p> 个人的</p>
+		
+		
+			<p>	java技术分享博客</p>
+		
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/shenjixiang" target="_blank" title="weibo"></a>
+		
+				
+		
+		<a href="https://github.com/shenjixiang" target="_blank" title="github"></a>
+		
+		
+		
+		<a href="http://shenjixiang.cn" target="_blank" title="twitter"></a>
+		
+	</div>
+</div>
+<aside class="clearfix">
+
+
+  
+<div class="tagslist">
+	 <p class="asidetitle">赞助商</p> 
+	<a href="http://www.henghost.com/hc/index.html" target="_blank">
+		<img src='http://www.shenjixiang.cn/image/advertisement/hengchuang.jpg' />
+	</a>
+</div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">站内搜索</p>
+		<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank" style="margin-top:0.3em;">		
+			<input name="s" type="hidden" value="6391109077580778314" >
+			<input type="text"  name="q" size="30" placeholder="回车搜索"><br>
+		</form>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li class="categorieslist-li"><a href="/categories/HBase/" title="HBase">HBase<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Mahout/" title="Mahout">Mahout<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Pig/" title="Pig">Pig<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/extJs/" title="extJs">extJs<sup>5</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hadoop/" title="hadoop">hadoop<sup>6</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hive/" title="hive">hive<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/j2EE/" title="j2EE">j2EE<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/zookeeper/" title="zookeeper">zookeeper<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/主机/" title="主机">主机<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/分布式/" title="分布式">分布式<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/前段/" title="前段">前段<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/基础/" title="基础">基础<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/数据库/" title="数据库">数据库<sup>18</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">热评文章</h3>	
+		<div class="ds-top-threads" data-range="monthly" data-num-items="9">			
+		</div>	
+  </div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">最新评论</h3>
+     <div class="widget" style="margin-top:0.2em;">
+      <div class="ds-recent-comments" data-num-items="6" data-show-avatars="0" data-show-time="1" data-show-title="1" data-show-admin="0" data-excerpt-length="15"></div>
+  </div>
+  </div>
+
+
+  <div class="rsspart">
+	<p class="asidetitle">RSS</p>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	<p class="copyright">
+		<label>联系方式：1038342063@qq.com</label>
+	</P>
+	<p class="copyright">
+		<label><a href="http://zgboke.com" target="_blank" title="收录国内优秀独立博客！">中国博客联盟</a>&nbsp;|
+		<label><a href="http://lusongsong.com/" target="_blank">卢松松</a></label>&nbsp;|
+		<label><a href="http://www.wangwangkui.com/" target="_blank">王望奎博客</a></label>&nbsp;|
+		<label><a href="http://koubei.baidu.com/s/www.shenjixiang.cn" target="_blank" title="沈吉祥的百度口碑">我的百度口碑</a></label>&nbsp;|
+		<label><a href="http://zgboke.com/site/www.shenjixiang.cn.html" target="_blank" title="沈吉祥的博客联盟">我的博客联盟</a></label>&nbsp;|
+		<label><a href="http://tool.chinaz.com/" target="_blank" title="站长工具">站长工具</a></label>&nbsp;|
+		<label><a href="http://www.shenjixiang.cn/say" target="_blank" title="沈吉祥的留言">留言版</a></label>
+	</P>
+	<p class="copyright">版权所有&nbsp;©&nbsp;2014
+	Powered by  <a href="http://www.shenjixiang.cn/about" target="_blank" title="沈吉祥">沈吉祥</a>&nbsp;&nbsp;All Rights Reserved.
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"shenjx"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = "/js/embed.js";
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<!-- 百度统计 -->
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F19bb7b623acbcad20dbfc09ae6f0fd48' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+  </body>
+</html>

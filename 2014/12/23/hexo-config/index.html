@@ -1,0 +1,626 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  
+    <title>hexo静态博客之配置篇 | 沈吉祥的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="沈吉祥">
+	<meta name="keywords" content="hexo静态博客之配置篇,云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥">
+	<meta name="baidu-site-verification" content="SXTXec2rT4">
+	<meta name="alexaVerifyID" content="K3vQ9PS2ifPW0Nr7kp2PsGQ49hA"/>
+	<meta name="generator" content="沈吉祥的博客">
+    
+    <meta name="description" content="本部分别讲述：hexo配置、主题配置、建议安装的插件
+列出一些我常用的配置及插件
+
+一、 hexo配置
+
+先来讲 F:\hexo\_config.yml。这个配置文件是hexo的主要配置文件，核心部分。
+
+#Site 站点配置
+title: 沈吉祥的博客 #站点名
+subtitle: 人生不应该是看">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="沈吉祥的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+	<link rel="index" title="hexo静态博客之配置篇" href="/2014/12/23/hexo-config/"> 
+    <link rel="home" title="沈吉祥的博客" href="http://www.shenjixiang.cn"> 
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="沈吉祥的博客">沈吉祥的博客</a></h1>
+				<h2 class="blog-motto">人生不应该是看得到未来的</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/" target="_self">主页</a></li>
+					
+						<li><a href="/archives" target="_self">全部文章</a></li>
+					
+						<li><a href="/resources" target="_self">资源共享</a></li>
+					
+						<li><a href="/photo" target="_self">相册</a></li>
+					
+						<li><a href="/about" target="_self">关于我</a></li>
+					
+						<li><a href="/say" target="_self">留言版</a></li>
+					
+					<li>
+					
+					</li>
+                <li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>
+
+				</ul>
+			</nav>	
+</div>
+
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		
+<header class="article-info clearfix">
+ 
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/23/hexo-config/" title="hexo静态博客之配置篇" itemprop="url">hexo静态博客之配置篇</a>
+  </h1>
+  
+  <p class="article-author">作者：
+    
+      <a href="http://www.shenjixiang.cn" title="沈吉祥">沈吉祥</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-12-23T13:19:22.000Z" itemprop="datePublished">12月23 2014</time>&nbsp;
+    更新日期：<time datetime="2014-12-23T14:31:57.000Z" itemprop="dateModified">12月23 2014</time>
+    
+  </p>
+   
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#本部分别讲述：hexo配置、主题配置、建议安装的插件"><span class="toc-number">1.</span> <span class="toc-text">本部分别讲述：hexo配置、主题配置、建议安装的插件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#列出一些我常用的配置及插件"><span class="toc-number">2.</span> <span class="toc-text">列出一些我常用的配置及插件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、_hexo配置"><span class="toc-number"></span> <span class="toc-text">一、 hexo配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、主题配置"><span class="toc-number"></span> <span class="toc-text">二、主题配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、hexo建议安装的插件"><span class="toc-number"></span> <span class="toc-text">三、hexo建议安装的插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、启动服务器"><span class="toc-number"></span> <span class="toc-text">四、启动服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。"><span class="toc-number">1.</span> <span class="toc-text">好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。</span></a></li></ol>
+		</div>
+		
+		<blockquote>
+<h5 id="本部分别讲述：hexo配置、主题配置、建议安装的插件">本部分别讲述：hexo配置、主题配置、建议安装的插件</h5>
+<h5 id="列出一些我常用的配置及插件">列出一些我常用的配置及插件</h5>
+</blockquote>
+<h3 id="一、_hexo配置">一、 hexo配置</h3>
+<ol>
+<li>先来讲 <code>F:\hexo\_config.yml</code>。这个配置文件是hexo的主要配置文件，核心部分。</li>
+</ol>
+<pre><code><span class="preprocessor">#Site 站点配置</span>
+<span class="label">title:</span> 沈吉祥的博客 <span class="preprocessor">#站点名</span>
+<span class="label">subtitle:</span> 人生不应该是看得到未来的 <span class="preprocessor">#副标题</span>
+<span class="label">description:</span> 沈吉祥的博客,专注于java技术,提供程序源码和技术知识分享的个人博客网站。 <span class="preprocessor">#给搜索引擎看的，对站点的描述，可以自定义</span>
+<span class="label">keywords:</span> 云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥  <span class="preprocessor">#给搜索引擎看的，站点关键字，可以自定义</span>
+<span class="label">author:</span> 沈吉祥 <span class="preprocessor">#站点作者，用不用取决于主题</span>
+<span class="label">email:</span> <span class="number">1038342063</span>@qq.com <span class="preprocessor">#邮箱</span>
+<span class="label">language:</span> <span class="built_in">zh</span>-CN <span class="preprocessor">#语言，中文</span>
+
+<span class="preprocessor"># URL下面的照写就是了，不需改动</span>
+<span class="label">url:</span> http://www.shenjixiang.cn <span class="preprocessor">#创建sitemap.xml需要配置该项，有个人域名就写上</span>
+<span class="label">root:</span> / 
+<span class="label">permalink:</span> :year/:month/:day/:title/
+<span class="label">tag_dir:</span> tags
+<span class="label">archive_dir:</span> archives
+<span class="label">category_dir:</span> categories
+
+<span class="preprocessor"># Directory</span>
+<span class="label">source_dir:</span> source
+<span class="label">public_dir:</span> public
+
+<span class="preprocessor"># Writing 不需改动</span>
+<span class="label">new_post_name:</span> :title.md <span class="preprocessor"># File name of new posts</span>
+<span class="label">default_layout:</span> post
+<span class="label">auto_spacing:</span> false <span class="preprocessor"># Add spaces between asian characters and western characters</span>
+<span class="label">titlecase:</span> false <span class="preprocessor"># Transform title into titlecase</span>
+<span class="label">external_link:</span> true <span class="preprocessor"># Open external links in new tab</span>
+<span class="label">max_open_file:</span> <span class="number">100</span>
+<span class="label">multi_thread:</span> true
+<span class="label">filename_case:</span> <span class="number">0</span>
+<span class="label">render_drafts:</span> false
+<span class="label">post_asset_folder:</span> false
+<span class="label">highlight:</span>
+  enable: true
+  backtick_code_block: true
+  line_number: true
+  tab_replace:
+
+<span class="preprocessor"># Category &amp; Tag 不需改动</span>
+<span class="label">default_category:</span> uncategorized
+<span class="label">category_map:</span>
+<span class="label">tag_map:</span>
+
+<span class="preprocessor"># Archives 不需改动</span>
+<span class="preprocessor">## 2: Enable pagination</span>
+<span class="preprocessor">## 1: Disable pagination</span>
+<span class="preprocessor">## 0: Fully Disable</span>
+<span class="label">archive:</span> <span class="number">1</span>
+<span class="label">category:</span> <span class="number">1</span>
+<span class="label">tag:</span> <span class="number">1</span>
+
+<span class="preprocessor"># Server 不需改动</span>
+<span class="preprocessor">## Hexo uses Connect as a server</span>
+<span class="preprocessor">## You can customize the logger format as defined in</span>
+<span class="preprocessor">## http://www.senchalabs.org/connect/logger.html</span>
+<span class="label">port:</span> <span class="number">4000</span>
+<span class="label">server_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>
+<span class="label">logger:</span> false
+<span class="label">logger_format:</span>
+<span class="preprocessor"># Date / Time format</span>
+<span class="preprocessor">## Hexo uses Moment.js to parse and display date</span>
+<span class="preprocessor">## You can customize the date format as defined in</span>
+<span class="preprocessor">## http://momentjs.com/docs/#/displaying/format/</span>
+<span class="label">date_format:</span> MMMDD YYYY
+<span class="label">time_format:</span> H:mm:ss
+
+<span class="preprocessor"># Pagination</span>
+<span class="preprocessor">## Set per_page to 0 to disable pagination</span>
+<span class="label">per_page:</span> <span class="number">12</span> <span class="preprocessor">#设置每页显示条数</span>
+<span class="label">pagination_dir:</span> page
+
+<span class="preprocessor"># duoshuo 多说的用户名</span>
+<span class="label">duoshuo_shortname:</span> 
+
+<span class="preprocessor"># Extensions 这里配置站点所用主题和插件，暂默认，后面会介绍怎么修改，下面有我用到的插件</span>
+<span class="preprocessor">## Plugins: https://github.com/tommy351/hexo/wiki/Plugins</span>
+<span class="preprocessor">## Themes: https://github.com/tommy351/hexo/wiki/Themes</span>
+<span class="label">theme:</span> light <span class="preprocessor">#主题名称配置</span>
+<span class="label">exclude_generator:</span>
+<span class="label">plugins:</span>
+- hexo-generator-sitemap
+- hexo-generator-baidu-sitemap
+- hexo-generator-feed    
+- hexo-generator-alias
+
+<span class="preprocessor">#百度sitemap插件路径配置</span>
+<span class="label">baidusitemap:</span>
+    path: baidusitemap.xml
+
+<span class="preprocessor">#Deployment 站点部署到github要配置，后面详讲</span>
+<span class="label">deploy:</span>
+  type: github
+  repository: git@github.com:shenjixiang/shenjixiang.github.io.git
+  branch: master
+</code></pre><h3 id="二、主题配置">二、主题配置</h3>
+<pre><code>主题下载地址：http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo/wiki/Themes
+</code></pre><ol>
+<li>选择自己喜欢的主题，在hexo博客目录下右键gitbash，输入git clone git@github.com:hustcer/hexo-theme-air.git themes/air下载到本地目录</li>
+<li>可到themes目录下看到air这个目录，这里面就是下载的主题。在<code>F:\hexo\_config.yml</code>这个配置文件里theme改为air</li>
+<li>主题配置：<code>F:\hexo\themes\_config.yml</code>，这个配置就太多了。因为各种主题的配置及其使用的插件都不一样。</li>
+<li>一般都有这几个配置：</li>
+</ol>
+<pre><code><span class="label">menu:</span> <span class="preprocessor">#站点右上角导航栏，暂时默认，后面介绍修改</span>
+  首页: /
+  存档: /archives
+  关于: /about      
+<span class="label">widgets:</span> <span class="preprocessor">#站点右边栏，暂时默认，后面介绍修改和添加</span>
+- search
+- category
+- tagcloud
+- weibo
+- blogroll
+
+<span class="label">excerpt_link:</span> 阅读全文 <span class="preprocessor">#替换为中文</span>
+
+<span class="label">plugins:</span> <span class="preprocessor">#插件配置</span>
+
+<span class="label">fancybox:</span> true <span class="preprocessor">#图片效果，默认</span>
+
+<span class="label">rss:</span>  /atom.xml <span class="preprocessor">#生成RSS，需要配置路径，暂时默认，后面介绍</span>
+</code></pre><ul>
+<li>配置这些多弄几下就熟悉了。挺简单的，呵呵！！</li>
+</ul>
+<h3 id="三、hexo建议安装的插件">三、hexo建议安装的插件</h3>
+<pre><code>插件汇集地址：http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo/wiki/Plugins
+</code></pre><ol>
+<li>插件下载完成之后，也需要配置才能使用。在<code>F:\hexo\_config.yml</code>里，像我配置的那样配置，只需插件名即可。</li>
+</ol>
+<h3 id="四、启动服务器">四、启动服务器</h3>
+<ol>
+<li>hexo server，访问localhost:4000预览效果。（退出server用Ctrl+C），看看主题效果，不满意再换别的或者自己修改。<h5 id="好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。">好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。</h5>
+</li>
+</ol>
+  
+	</div>
+		
+	<footer class="article-footer clearfix">
+	
+  <div class="article-tags">
+  
+  <span>标签：</span> <a href="/tags/hexo/">hexo</a><a href="/tags/博客搭建/">博客搭建</a>
+  </div>
+
+
+<div class="article-categories">
+  <span>分类：</span>
+  <a class="article-category-link" href="/categories/hexo/">hexo</a>
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>	
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>	
+    <a href="javascript:void(0);" 
+		class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" >更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"shenjixiang"},hideMore:true}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1937900" charset="utf-8"></script>      
+
+	
+	</div>
+	</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<strong>下一篇：</strong>
+<a href="/2014/12/20/hexo-build/"  title="hexo静态博客之搭建篇">
+ 
+ <span>hexo静态博客之搭建篇
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<div class="article-comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="hexo静态博客之配置篇" data-title="hexo静态博客之配置篇" data-url="http://www.shenjixiang.cn/2014/12/23/hexo-config/"></div>
+	<!-- 多说评论框 end -->
+
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shenjx"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = "/js/embed.js";
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+</div>  
+      
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#本部分别讲述：hexo配置、主题配置、建议安装的插件"><span class="toc-number">1.</span> <span class="toc-text">本部分别讲述：hexo配置、主题配置、建议安装的插件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#列出一些我常用的配置及插件"><span class="toc-number">2.</span> <span class="toc-text">列出一些我常用的配置及插件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、_hexo配置"><span class="toc-number"></span> <span class="toc-text">一、 hexo配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、主题配置"><span class="toc-number"></span> <span class="toc-text">二、主题配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、hexo建议安装的插件"><span class="toc-number"></span> <span class="toc-text">三、hexo建议安装的插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、启动服务器"><span class="toc-number"></span> <span class="toc-text">四、启动服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。"><span class="toc-number">1.</span> <span class="toc-text">好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	
+	<section class="author-info">
+		
+			<p> 个人的</p>
+		
+		
+			<p>	java技术分享博客</p>
+		
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/shenjixiang" target="_blank" title="weibo"></a>
+		
+				
+		
+		<a href="https://github.com/shenjixiang" target="_blank" title="github"></a>
+		
+		
+		
+		<a href="http://shenjixiang.cn" target="_blank" title="twitter"></a>
+		
+	</div>
+</div>
+<aside class="clearfix">
+
+
+  
+<div class="tagslist">
+	 <p class="asidetitle">赞助商</p> 
+	<a href="http://www.henghost.com/hc/index.html" target="_blank">
+		<img src='http://www.shenjixiang.cn/image/advertisement/hengchuang.jpg' />
+	</a>
+</div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">站内搜索</p>
+		<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank" style="margin-top:0.3em;">		
+			<input name="s" type="hidden" value="6391109077580778314" >
+			<input type="text"  name="q" size="30" placeholder="回车搜索"><br>
+		</form>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li class="categorieslist-li"><a href="/categories/HBase/" title="HBase">HBase<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Mahout/" title="Mahout">Mahout<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Pig/" title="Pig">Pig<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/extJs/" title="extJs">extJs<sup>5</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hadoop/" title="hadoop">hadoop<sup>6</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hive/" title="hive">hive<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/j2EE/" title="j2EE">j2EE<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/zookeeper/" title="zookeeper">zookeeper<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/主机/" title="主机">主机<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/分布式/" title="分布式">分布式<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/前段/" title="前段">前段<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/基础/" title="基础">基础<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/数据库/" title="数据库">数据库<sup>18</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">热评文章</h3>	
+		<div class="ds-top-threads" data-range="monthly" data-num-items="9">			
+		</div>	
+  </div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">最新评论</h3>
+     <div class="widget" style="margin-top:0.2em;">
+      <div class="ds-recent-comments" data-num-items="6" data-show-avatars="0" data-show-time="1" data-show-title="1" data-show-admin="0" data-excerpt-length="15"></div>
+  </div>
+  </div>
+
+
+  <div class="rsspart">
+	<p class="asidetitle">RSS</p>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	<p class="copyright">
+		<label>联系方式：1038342063@qq.com</label>
+	</P>
+	<p class="copyright">
+		<label><a href="http://zgboke.com" target="_blank" title="收录国内优秀独立博客！">中国博客联盟</a>&nbsp;|
+		<label><a href="http://lusongsong.com/" target="_blank">卢松松</a></label>&nbsp;|
+		<label><a href="http://www.wangwangkui.com/" target="_blank">王望奎博客</a></label>&nbsp;|
+		<label><a href="http://koubei.baidu.com/s/www.shenjixiang.cn" target="_blank" title="沈吉祥的百度口碑">我的百度口碑</a></label>&nbsp;|
+		<label><a href="http://zgboke.com/site/www.shenjixiang.cn.html" target="_blank" title="沈吉祥的博客联盟">我的博客联盟</a></label>&nbsp;|
+		<label><a href="http://tool.chinaz.com/" target="_blank" title="站长工具">站长工具</a></label>&nbsp;|
+		<label><a href="http://www.shenjixiang.cn/say" target="_blank" title="沈吉祥的留言">留言版</a></label>
+	</P>
+	<p class="copyright">版权所有&nbsp;©&nbsp;2014
+	Powered by  <a href="http://www.shenjixiang.cn/about" target="_blank" title="沈吉祥">沈吉祥</a>&nbsp;&nbsp;All Rights Reserved.
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"shenjx"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = "/js/embed.js";
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<!-- 百度统计 -->
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F19bb7b623acbcad20dbfc09ae6f0fd48' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+  </body>
+</html>

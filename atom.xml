@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[沈吉祥的博客]]></title>
+  <subtitle><![CDATA[人生不应该是看得到未来的]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.shenjixiang.cn/"/>
+  <updated>2014-12-23T14:32:42.627Z</updated>
+  <id>http://www.shenjixiang.cn/</id>
+  
+  <author>
+    <name><![CDATA[沈吉祥]]></name>
+    <email><![CDATA[1038342063@qq.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[hexo静态博客之配置篇]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/23/hexo-config/"/>
+    <id>http://www.shenjixiang.cn/2014/12/23/hexo-config/</id>
+    <published>2014-12-23T13:19:22.000Z</published>
+    <updated>2014-12-23T14:31:57.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<h5 id="本部分别讲述：hexo配置、主题配置、建议安装的插件">本部分别讲述：hexo配置、主题配置、建议安装的插件</h5>
+<h5 id="列出一些我常用的配置及插件">列出一些我常用的配置及插件</h5>
+</blockquote>
+<h3 id="一、_hexo配置">一、 hexo配置</h3>
+<ol>
+<li>先来讲 <code>F:\hexo\_config.yml</code>。这个配置文件是hexo的主要配置文件，核心部分。</li>
+</ol>
+<pre><code><span class="preprocessor">#Site 站点配置</span>
+<span class="label">title:</span> 沈吉祥的博客 <span class="preprocessor">#站点名</span>
+<span class="label">subtitle:</span> 人生不应该是看得到未来的 <span class="preprocessor">#副标题</span>
+<span class="label">description:</span> 沈吉祥的博客,专注于java技术,提供程序源码和技术知识分享的个人博客网站。 <span class="preprocessor">#给搜索引擎看的，对站点的描述，可以自定义</span>
+<span class="label">keywords:</span> 云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥  <span class="preprocessor">#给搜索引擎看的，站点关键字，可以自定义</span>
+<span class="label">author:</span> 沈吉祥 <span class="preprocessor">#站点作者，用不用取决于主题</span>
+<span class="label">email:</span> <span class="number">1038342063</span>@qq.com <span class="preprocessor">#邮箱</span>
+<span class="label">language:</span> <span class="built_in">zh</span>-CN <span class="preprocessor">#语言，中文</span>
+
+<span class="preprocessor"># URL下面的照写就是了，不需改动</span>
+<span class="label">url:</span> http://www.shenjixiang.cn <span class="preprocessor">#创建sitemap.xml需要配置该项，有个人域名就写上</span>
+<span class="label">root:</span> / 
+<span class="label">permalink:</span> :year/:month/:day/:title/
+<span class="label">tag_dir:</span> tags
+<span class="label">archive_dir:</span> archives
+<span class="label">category_dir:</span> categories
+
+<span class="preprocessor"># Directory</span>
+<span class="label">source_dir:</span> source
+<span class="label">public_dir:</span> public
+
+<span class="preprocessor"># Writing 不需改动</span>
+<span class="label">new_post_name:</span> :title.md <span class="preprocessor"># File name of new posts</span>
+<span class="label">default_layout:</span> post
+<span class="label">auto_spacing:</span> false <span class="preprocessor"># Add spaces between asian characters and western characters</span>
+<span class="label">titlecase:</span> false <span class="preprocessor"># Transform title into titlecase</span>
+<span class="label">external_link:</span> true <span class="preprocessor"># Open external links in new tab</span>
+<span class="label">max_open_file:</span> <span class="number">100</span>
+<span class="label">multi_thread:</span> true
+<span class="label">filename_case:</span> <span class="number">0</span>
+<span class="label">render_drafts:</span> false
+<span class="label">post_asset_folder:</span> false
+<span class="label">highlight:</span>
+  enable: true
+  backtick_code_block: true
+  line_number: true
+  tab_replace:
+
+<span class="preprocessor"># Category &amp; Tag 不需改动</span>
+<span class="label">default_category:</span> uncategorized
+<span class="label">category_map:</span>
+<span class="label">tag_map:</span>
+
+<span class="preprocessor"># Archives 不需改动</span>
+<span class="preprocessor">## 2: Enable pagination</span>
+<span class="preprocessor">## 1: Disable pagination</span>
+<span class="preprocessor">## 0: Fully Disable</span>
+<span class="label">archive:</span> <span class="number">1</span>
+<span class="label">category:</span> <span class="number">1</span>
+<span class="label">tag:</span> <span class="number">1</span>
+
+<span class="preprocessor"># Server 不需改动</span>
+<span class="preprocessor">## Hexo uses Connect as a server</span>
+<span class="preprocessor">## You can customize the logger format as defined in</span>
+<span class="preprocessor">## http://www.senchalabs.org/connect/logger.html</span>
+<span class="label">port:</span> <span class="number">4000</span>
+<span class="label">server_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>
+<span class="label">logger:</span> false
+<span class="label">logger_format:</span>
+<span class="preprocessor"># Date / Time format</span>
+<span class="preprocessor">## Hexo uses Moment.js to parse and display date</span>
+<span class="preprocessor">## You can customize the date format as defined in</span>
+<span class="preprocessor">## http://momentjs.com/docs/#/displaying/format/</span>
+<span class="label">date_format:</span> MMMDD YYYY
+<span class="label">time_format:</span> H:mm:ss
+
+<span class="preprocessor"># Pagination</span>
+<span class="preprocessor">## Set per_page to 0 to disable pagination</span>
+<span class="label">per_page:</span> <span class="number">12</span> <span class="preprocessor">#设置每页显示条数</span>
+<span class="label">pagination_dir:</span> page
+
+<span class="preprocessor"># duoshuo 多说的用户名</span>
+<span class="label">duoshuo_shortname:</span> 
+
+<span class="preprocessor"># Extensions 这里配置站点所用主题和插件，暂默认，后面会介绍怎么修改，下面有我用到的插件</span>
+<span class="preprocessor">## Plugins: https://github.com/tommy351/hexo/wiki/Plugins</span>
+<span class="preprocessor">## Themes: https://github.com/tommy351/hexo/wiki/Themes</span>
+<span class="label">theme:</span> light <span class="preprocessor">#主题名称配置</span>
+<span class="label">exclude_generator:</span>
+<span class="label">plugins:</span>
+- hexo-generator-sitemap
+- hexo-generator-baidu-sitemap
+- hexo-generator-feed    
+- hexo-generator-alias
+
+<span class="preprocessor">#百度sitemap插件路径配置</span>
+<span class="label">baidusitemap:</span>
+    path: baidusitemap.xml
+
+<span class="preprocessor">#Deployment 站点部署到github要配置，后面详讲</span>
+<span class="label">deploy:</span>
+  type: github
+  repository: git@github.com:shenjixiang/shenjixiang.github.io.git
+  branch: master
+</code></pre><h3 id="二、主题配置">二、主题配置</h3>
+<pre><code>主题下载地址：http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo/wiki/Themes
+</code></pre><ol>
+<li>选择自己喜欢的主题，在hexo博客目录下右键gitbash，输入git clone git@github.com:hustcer/hexo-theme-air.git themes/air下载到本地目录</li>
+<li>可到themes目录下看到air这个目录，这里面就是下载的主题。在<code>F:\hexo\_config.yml</code>这个配置文件里theme改为air</li>
+<li>主题配置：<code>F:\hexo\themes\_config.yml</code>，这个配置就太多了。因为各种主题的配置及其使用的插件都不一样。</li>
+<li>一般都有这几个配置：</li>
+</ol>
+<pre><code><span class="label">menu:</span> <span class="preprocessor">#站点右上角导航栏，暂时默认，后面介绍修改</span>
+  首页: /
+  存档: /archives
+  关于: /about      
+<span class="label">widgets:</span> <span class="preprocessor">#站点右边栏，暂时默认，后面介绍修改和添加</span>
+- search
+- category
+- tagcloud
+- weibo
+- blogroll
+
+<span class="label">excerpt_link:</span> 阅读全文 <span class="preprocessor">#替换为中文</span>
+
+<span class="label">plugins:</span> <span class="preprocessor">#插件配置</span>
+
+<span class="label">fancybox:</span> true <span class="preprocessor">#图片效果，默认</span>
+
+<span class="label">rss:</span>  /atom.xml <span class="preprocessor">#生成RSS，需要配置路径，暂时默认，后面介绍</span>
+</code></pre><ul>
+<li>配置这些多弄几下就熟悉了。挺简单的，呵呵！！</li>
+</ul>
+<h3 id="三、hexo建议安装的插件">三、hexo建议安装的插件</h3>
+<pre><code>插件汇集地址：http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo/wiki/Plugins
+</code></pre><ol>
+<li>插件下载完成之后，也需要配置才能使用。在<code>F:\hexo\_config.yml</code>里，像我配置的那样配置，只需插件名即可。</li>
+</ol>
+<h3 id="四、启动服务器">四、启动服务器</h3>
+<ol>
+<li>hexo server，访问localhost:4000预览效果。（退出server用Ctrl+C），看看主题效果，不满意再换别的或者自己修改。<h5 id="好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。">好啦，今天基本就这些。有问题留言或百度，自己多动动脑筋想想，一般都会解决的。接下来会讲讲写文章和github操作。</h5>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<h5 id="本部分别讲述：hexo配置、主题配置、建议安装的插件">本部分别讲述：hexo配置、主题配置、建议安装的插件</h5>
+<h5 id="列出一些我常用的配置及插件">列出一些我常用的配置及插件</h5>
+</blockquote>
+<h3]]>
+    </summary>
+    
+      <category term="hexo" scheme="http://www.shenjixiang.cn/tags/hexo/"/>
+    
+      <category term="博客搭建" scheme="http://www.shenjixiang.cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="hexo" scheme="http://www.shenjixiang.cn/categories/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hexo静态博客之搭建篇]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/20/hexo-build/"/>
+    <id>http://www.shenjixiang.cn/2014/12/20/hexo-build/</id>
+    <published>2014-12-20T07:10:13.000Z</published>
+    <updated>2014-12-20T15:04:47.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="下载必备工具">下载必备工具</h3>
+<ul>
+<li><a href="http://git-scm.com/download/" target="_blank" rel="external">下载git</a> (执行即可完成安装)</li>
+<li><a href="http://nodejs.org/download/" target="_blank" rel="external">下载nodejs</a>  (执行即可完成安装)</li>
+<li>以上安装完成后最好重启电脑</li>
+</ul>
+<h3 id="安装hexo(利用_npm_命令)">安装hexo(利用 npm 命令)</h3>
+<ul>
+<li>在E盘建立一个专门存放博客页面的目录。</li>
+<li>在博客目录下，鼠标右键选择Git bash</li>
+<li>输入命令：<code>npm install -g hexo</code>(如果存在下载慢的情况，可ctrl+c退出，重新键入命令下载即可,多试几次)</li>
+<li>输入初始化命令：<code>hexo init</code></li>
+<li>完成依赖包安装：<code>npm install</code></li>
+</ul>
+<h3 id="本地运行博客">本地运行博客</h3>
+<ul>
+<li>生成博客页面：<code>hexo generate</code></li>
+<li>运行：<code>hexo server</code></li>
+<li>在浏览器里输入地址：localhost:4000，即可访问</li>
+<li>到这里，基本搭建就已成功了，接下来选择安装自己喜欢的主题</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="下载必备工具">下载必备工具</h3>
+<ul>
+<li><a href="http://git-scm.com/download/" target="_blank" rel="external">下载git</a> (执行即可完成安装)</li>
+<li><a ]]>
+    </summary>
+    
+      <category term="hexo" scheme="http://www.shenjixiang.cn/tags/hexo/"/>
+    
+      <category term="博客搭建" scheme="http://www.shenjixiang.cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="hexo" scheme="http://www.shenjixiang.cn/categories/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hexo静态博客之介绍篇]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/19/hexo-introduce/"/>
+    <id>http://www.shenjixiang.cn/2014/12/19/hexo-introduce/</id>
+    <published>2014-12-19T15:32:37.000Z</published>
+    <updated>2014-12-20T15:05:33.000Z</updated>
+    <content type="html"><![CDATA[<h5 id="开篇废话">开篇废话</h5>
+<ul>
+<li>今天同学小聚了一下，因为都是code，说好的不说工作上的事，结果聚到一起都是说的这些。有吐槽的，有讨论公司各种xxx的。觉得在这蓉城都还发展的不错，看来我们班个个都是人才啊。</li>
+<li>今天谈到了一问题，几个好朋友想做做网站，交流一下各自的想法。我打算写一下自己建立这个博客的详细过程。有问题都可以留言的，我会及时回复。</li>
+<li>后面我都会上传我用到的工具和一些资料到网盘，做到真正的方便使用！！统一到 <a href="/resources">资源共享</a> 下载</li>
+</ul>
+<h3 id="技术工具功能介绍">技术工具功能介绍</h3>
+<ul>
+<li>git：用来上传博客代码，管理博客(必须)</li>
+<li>github/gitcafe账号：建议用github，虽然速度慢点，但是相对gitcafe稳定。(必须)</li>
+<li>nodejs：hexo必须工具(必须)</li>
+<li>hexo：真正用到的生成博客静态页面的项目(必须)</li>
+<li>个人域名：可以不用，github会提供一个二级域名，但申请一个对收录、排名、seo相对较好(建议)</li>
+</ul>
+<h3 id="hexo介绍">hexo介绍</h3>
+<ul>
+<li>基于Node.js的静态博客程序，用于生成静态网页。</li>
+<li>相比jekyll、Octopress，它的优点很明显：生成页面速度极快，主题多，用的人群多，版本更新快，插件丰富，只要会点html,js,css都可以轻松更改主题样式，布局等，易维护。</li>
+<li>支持markdown，用过的人肯定知道Markdown的强大，能够迅速写出一篇文章，而不用一个个去调样式，布局等等。</li>
+<li>生成页面后，执行一个指令即可部署到github或者gitcafe</li>
+<li>平时使用中仅需要<code>hexo n post</code>、<code>hexo g</code>、<code>hexo s</code>、<code>hexo d</code>四个命令。</li>
+</ul>
+<h5 id="那么问题来了，怎样搭建hexo博客？请期待下一篇文章。">那么问题来了，怎样搭建hexo博客？请期待下一篇文章。</h5>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h5 id="开篇废话">开篇废话</h5>
+<ul>
+<li>今天同学小聚了一下，因为都是code，说好的不说工作上的事，结果聚到一起都是说的这些。有吐槽的，有讨论公司各种xxx的。觉得在这蓉城都还发展的不错，看来我们班个个都是人才啊。</li>
+<li>今天谈到了一问题，几]]>
+    </summary>
+    
+      <category term="hexo" scheme="http://www.shenjixiang.cn/tags/hexo/"/>
+    
+      <category term="博客搭建" scheme="http://www.shenjixiang.cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="hexo" scheme="http://www.shenjixiang.cn/categories/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[java调用mediainfo.dll获取媒体文件信息]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/11/java-load-mediainfoDll/"/>
+    <id>http://www.shenjixiang.cn/2014/12/11/java-load-mediainfoDll/</id>
+    <published>2014-12-11T14:00:39.000Z</published>
+    <updated>2014-12-11T14:19:05.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="闲聊">闲聊</h3>
+<blockquote>
+<p>使用这种方式获取媒体文件信息也是无奈之举。之前以为可以用jmf，但是发现jmf只是处理流的传输，负责播放媒体文件的。<br>可以看出java的弱点和不足。做这种很细节，跟底层太相关的东西确实有点难。<br>在网上找了很久，我也折腾了很久，才算找出来方法，跟大家分享。</p>
+</blockquote>
+<h3 id="使用说明">使用说明</h3>
+<ul>
+<li>一般通过读取码率算出每次需发送多少字节和隔多久发一次，结合udp来发送。使其到达终端播放。</li>
+<li>注意mediainfo.dll要放在项目根目录下，linux下需转换成mediainfo.so文件</li>
+<li>代码都可以在资源共享，我的代码中下载</li>
+<li>MediaInfo在共享里，东西太多就不写在这里了</li>
+</ul>
+<h3 id="具体代码">具体代码</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">	MediaInfo MI = <span class="keyword">new</span> MediaInfo();</div><div class="line">	String FileName = <span class="string">"d:/媒体文件.wav"</span>;</div><div class="line">	 <span class="keyword">if</span> (MI.Open(FileName)&gt;<span class="number">0</span>){</div><div class="line">		 System.<span class="keyword">out</span>.println(<span class="string">"文件打开成功"</span>);</div><div class="line">		 String m = MI.Get(MediaInfo.StreamKind.General, <span class="number">0</span>, <span class="string">"OverallBitRate"</span>);</div><div class="line">		 System.<span class="keyword">out</span>.println(<span class="string">"综合码率(音视频结合码率)："</span>+m);</div><div class="line">		 System.<span class="keyword">out</span>.println(<span class="string">"文件所有详细信息："</span>+MI.Inform());</div><div class="line">	 }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="闲聊">闲聊</h3>
+<blockquote>
+<p>使用这种方式获取媒体文件信息也是无奈之举。之前以为可以用jmf，但是发现jmf只是处理流的传输，负责播放媒体文件的。<br>可以看出java的弱点和不足。做这种很细节，跟底层太相关的东西确实有点难。<br>在]]>
+    </summary>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/tags/j2EE/"/>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/categories/j2EE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[java调用dll几种方式总结]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/09/java-load-dll/"/>
+    <id>http://www.shenjixiang.cn/2014/12/09/java-load-dll/</id>
+    <published>2014-12-09T11:59:26.000Z</published>
+    <updated>2014-12-09T13:08:11.000Z</updated>
+    <content type="html"><![CDATA[<p>常用的就是jni，jnative(基于jni封装了自己的jar包)<br>注意：java调用dll，必须dll里做了对应的处理。列如：方法名必须为_java_包名_类名_方法名</p>
+<h3 id="使用JNI调用dll步骤">使用JNI调用dll步骤</h3>
+<ul>
+<li>新建一个java项目，将dll文件放入src下</li>
+<li>配置改项目环境jre下native目录，指向src</li>
+<li>项目jdk一定不要用eclipse自带的，用自己安装的jdk路径</li>
+<li>按照dll里的目录顺序新建目录及类</li>
+<li>声明跟dll里一样的方法，方法前加native关键字(注意参数类型)</li>
+<li>代码静态块里写(不要后缀)：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> {</div><div class="line">	System.loadLibrary(<span class="string">"testDll"</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<ul>
+<li>之后写main方法就可以调用了。如有报错，注意观察报错信息，可能会缺少依赖dll文件</li>
+</ul>
+<h3 id="简单封装JNI">简单封装JNI</h3>
+<ul>
+<li>简单封装一个调用dll的类</li>
+<li>代码可以在资源共享，我的代码中下载</li>
+<li>调用代码(主要是static块代码变了),DllUtil这块代码在共享里下载</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">static {</div><div class="line">	try {</div><div class="line">		DllUtil.extractFromJar(<span class="string">"testDll.dll"</span>, <span class="string">"testDll.dll"</span>, System</div><div class="line">				.getProperty(<span class="string">"java.io.tmpdir"</span>));</div><div class="line">		System.load(System.getProperty(<span class="string">"java.io.tmpdir"</span>) + <span class="string">"\\testDll.dll"</span>);</div><div class="line">		System.out.println(<span class="string">"load testDll.dll success!!"</span>);</div><div class="line">	} catch (Exception e) {</div><div class="line">		System.out.println(<span class="string">"testDll.dll error:"</span> + e.getMessage());</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>常用的就是jni，jnative(基于jni封装了自己的jar包)<br>注意：java调用dll，必须dll里做了对应的处理。列如：方法名必须为_java_包名_类名_方法名</p>
+<h3 id="使用JNI调用dll步骤">使用JNI调用dll步骤</h3>
+<ul>]]>
+    </summary>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/tags/j2EE/"/>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/categories/j2EE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[js常用方法使用总结]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/06/js-commonly/"/>
+    <id>http://www.shenjixiang.cn/2014/12/06/js-commonly/</id>
+    <published>2014-12-06T05:32:23.000Z</published>
+    <updated>2014-12-06T07:10:07.000Z</updated>
+    <content type="html"><![CDATA[<h5 id="说明：">说明：</h5>
+<ol>
+<li>在项目中使用一些工具类，公共类是非常有必要的，不仅是后台，前段亦是一样</li>
+<li>这里提供我收集的常用方法封装</li>
+<li>代码可以在资源共享，我的代码中下载。</li>
+</ol>
+<h5 id="注意：">注意：</h5>
+<ol>
+<li>字符串的拼接一定使用StringBuffer来拼接，否则容易造成浏览器卡顿或内存溢出。特别是针对一些执行js效率不高的浏览器！！</li>
+<li>经常对输入框里内容清空，对textarea，可以直接$(“textarea”).empty();如果使用$(“textarea”).html(“”);也可能会造成浏览器内存溢出！！</li>
+</ol>
+<h3 id="Date工具类">Date工具类</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> date工具类 <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>/</div><div class="line">Date.prototype.format = function(format){</div><div class="line">	var o = {</div><div class="line">		<span class="string">"M+"</span> : this.getMonth()+1, //month</div><div class="line">		<span class="string">"d+"</span> : this.getDate(), //day</div><div class="line">		<span class="string">"h+"</span> : this.getHours(), //hour</div><div class="line">		<span class="string">"m+"</span> : this.getMinutes(), //minute</div><div class="line">		<span class="string">"s+"</span> : this.getSeconds(), //second</div><div class="line">		<span class="string">"q+"</span> : Math.floor((this.getMonth()+3)/3), //quarter</div><div class="line">		<span class="string">"S"</span> : this.getMilliseconds() //millisecond</div><div class="line">	}</div><div class="line">	if(/(y+)/.test(format)) format=format.replace(RegExp.$1,(this.getFullYear()+<span class="string">""</span>).substr(4- RegExp.$1.length));</div><div class="line">	for(var k in o)if(new RegExp(<span class="string">"("</span>+ k +<span class="string">")"</span>).test(format))</div><div class="line">	format = format.replace(RegExp.$1,RegExp.$1.length==1? o[k] : (<span class="string">"00"</span>+ o[k]).substr((<span class="string">""</span>+ o[k]).length));</div><div class="line">	return format;</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<h3 id="公共工具类">公共工具类</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** 公共工具类 ***************/</span></div><div class="line"><span class="keyword">var</span> PublicUtil ={</div><div class="line">	isNotEmpty:	 <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span>{</div><div class="line">		<span class="keyword">return</span> !<span class="keyword">this</span>.isEmpty(val);</div><div class="line">	},</div><div class="line">	isEmpty: <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span>{</div><div class="line">		<span class="keyword">if</span> ((val==<span class="literal">null</span> || <span class="keyword">typeof</span>(val)==<span class="string">"undefined"</span>)|| (<span class="keyword">typeof</span>(val)==<span class="string">"string"</span>&&val==<span class="string">""</span>&&val!=<span class="string">"undefined"</span>)){</div><div class="line">		   <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		}<span class="keyword">else</span>{</div><div class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">		}</div><div class="line">	},</div><div class="line">	isDebug: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.isNotEmpty(configDebug)&&configDebug==<span class="string">"true"</span>){</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		}<span class="keyword">else</span>{</div><div class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">		}</div><div class="line">	},</div><div class="line">	<span class="comment">//去除元素内所有内容 strIds："#id1,#id2,#id3"</span></div><div class="line">	emptyHtml: <span class="function"><span class="keyword">function</span><span class="params">(strIds)</span></span>{</div><div class="line">		<span class="keyword">try</span>{</div><div class="line">			<span class="keyword">var</span> ids = strIds.trim(<span class="string">","</span>).split(<span class="string">","</span>);</div><div class="line">			$(ids).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">				<span class="keyword">var</span> obj = $(<span class="keyword">this</span>.toString());</div><div class="line">				<span class="keyword">if</span>(obj.length&gt;<span class="number">0</span>){</div><div class="line">					$(obj).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">						$(<span class="keyword">this</span>).html(<span class="string">""</span>);</div><div class="line">					});</div><div class="line">				}<span class="keyword">else</span>{</div><div class="line">					obj.html(<span class="string">""</span>);</div><div class="line">				}</div><div class="line">			});</div><div class="line">		}<span class="keyword">catch</span>(ex){</div><div class="line">			<span class="keyword">if</span>(PublicUtil.isDebug()){</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"js方法：【PublicUtil.emptyHtml(strIds)】，error！"</span>);</div><div class="line">			}</div><div class="line">		}</div><div class="line">	},</div><div class="line">	<span class="comment">//去除元素的值 strIds："#id1,#id2,#id3"</span></div><div class="line">	emptyValue: <span class="function"><span class="keyword">function</span><span class="params">(strIds)</span></span>{</div><div class="line">		<span class="keyword">try</span>{</div><div class="line">			<span class="keyword">var</span> ids = strIds.trim(<span class="string">","</span>).split(<span class="string">","</span>);</div><div class="line">			$(ids).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">				<span class="keyword">var</span> obj = $(<span class="keyword">this</span>.toString());</div><div class="line">				<span class="keyword">if</span>(obj.length&gt;<span class="number">0</span>){</div><div class="line">					$(obj).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">						$(<span class="keyword">this</span>).val(<span class="string">""</span>);</div><div class="line">					});</div><div class="line">				}<span class="keyword">else</span>{</div><div class="line">					obj.val(<span class="string">""</span>);</div><div class="line">				}</div><div class="line">			});</div><div class="line">		}<span class="keyword">catch</span>(ex){</div><div class="line">			<span class="keyword">if</span>(PublicUtil.isDebug()){</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"js方法：【PublicUtil.emptyValue(strIds)】，error！"</span>);</div><div class="line">			}</div><div class="line">		}</div><div class="line">	},</div><div class="line">	<span class="comment">//去除Textarea内所有内容 strIds："#id1,#id2,#id3"</span></div><div class="line">	emptyTextarea: <span class="function"><span class="keyword">function</span><span class="params">(strIds)</span></span>{</div><div class="line">		<span class="keyword">try</span>{</div><div class="line">			<span class="keyword">var</span> ids = strIds.trim(<span class="string">","</span>).split(<span class="string">","</span>);</div><div class="line">			$(ids).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">				<span class="keyword">var</span> obj = $(<span class="keyword">this</span>.toString());</div><div class="line">				<span class="keyword">if</span>(obj.length&gt;<span class="number">0</span>){</div><div class="line">					$(obj).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">						$(<span class="keyword">this</span>).empty();</div><div class="line">						$(<span class="keyword">this</span>).val(<span class="string">""</span>);</div><div class="line">					});</div><div class="line">				}<span class="keyword">else</span>{</div><div class="line">					obj.empty();</div><div class="line">					obj.val(<span class="string">""</span>);</div><div class="line">				}</div><div class="line">			});</div><div class="line">		}<span class="keyword">catch</span>(ex){</div><div class="line">			<span class="keyword">if</span>(PublicUtil.isDebug()){</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"js方法：【PublicUtil.emptyTextarea(strIds)】，error！"</span>);</div><div class="line">			}</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="String工具类">String工具类</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** String工具类***************/</span></div><div class="line"><span class="comment">//trim去掉字符串两边的指定字符,默去空格</span></div><div class="line"><span class="built_in">String</span>.prototype.trim = <span class="function"><span class="keyword">function</span><span class="params">(tag)</span> </span>{</div><div class="line">	<span class="keyword">if</span> (!tag) { </div><div class="line">		tag = <span class="string">'\\s'</span>;</div><div class="line">	}<span class="keyword">else</span> { </div><div class="line">		<span class="keyword">if</span> (tag == <span class="string">'\\'</span>) { </div><div class="line">		tag = <span class="string">'\\\\'</span>; </div><div class="line">	} <span class="keyword">else</span> <span class="keyword">if</span> (tag == <span class="string">','</span> || tag == <span class="string">'|'</span> || tag == <span class="string">';'</span>) { </div><div class="line">			tag = <span class="string">'\\'</span> + tag; </div><div class="line">		}<span class="keyword">else</span> { </div><div class="line">			tag = <span class="string">'\\s'</span>; </div><div class="line">		} </div><div class="line">	}</div><div class="line">	<span class="built_in">eval</span>(<span class="string">'var reg=/(^'</span> + tag + <span class="string">'+)|('</span> + tag + <span class="string">'+$)/g;'</span>); </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(reg, <span class="string">''</span>);</div><div class="line">};</div><div class="line"><span class="comment">//字符串截取后面加入...</span></div><div class="line"><span class="built_in">String</span>.prototype.interceptString = <span class="function"><span class="keyword">function</span><span class="params">(len)</span> </span>{</div><div class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.length &gt; len) {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.substring(<span class="number">0</span>, len) + <span class="string">"..."</span>;</div><div class="line">	} <span class="keyword">else</span> {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">	}</div><div class="line">}</div><div class="line"><span class="comment">//将一个字符串用给定的字符变成数组</span></div><div class="line"><span class="built_in">String</span>.prototype.toArray = <span class="function"><span class="keyword">function</span><span class="params">(tag)</span> </span>{</div><div class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.indexOf(tag) != -<span class="number">1</span>) {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.split(tag);</div><div class="line">	}<span class="keyword">else</span> {</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">this</span> != <span class="string">''</span>) {</div><div class="line">			<span class="keyword">return</span> [<span class="keyword">this</span>.toString()];</div><div class="line">		}<span class="keyword">else</span> {</div><div class="line">			<span class="keyword">return</span> [];</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"><span class="comment">//只留下数字(0123456789)</span></div><div class="line"><span class="built_in">String</span>.prototype.toNumber= <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/\D/g</span>, <span class="string">""</span>); </div><div class="line">}</div><div class="line"><span class="comment">//保留中文  </span></div><div class="line"><span class="built_in">String</span>.prototype.toCN= <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{  </div><div class="line">	<span class="keyword">var</span> regEx = <span class="regexp">/[^\u4e00-\u9fa5\uf900-\ufa2d]/g</span>;  </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(regEx, <span class="string">''</span>);  </div><div class="line">}</div><div class="line"><span class="comment">//转成int</span></div><div class="line"><span class="built_in">String</span>.prototype.toInt= <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{  </div><div class="line">	<span class="keyword">var</span> temp = <span class="keyword">this</span>.replace(<span class="regexp">/\D/g</span>, <span class="string">""</span>);</div><div class="line">	<span class="keyword">return</span> <span class="built_in">isNaN</span>(<span class="built_in">parseInt</span>(temp)) ? <span class="keyword">this</span>.toString() : <span class="built_in">parseInt</span>(temp);  </div><div class="line">}</div><div class="line"><span class="comment">//是否是以XX开头</span></div><div class="line"><span class="built_in">String</span>.prototype.startsWith= <span class="function"><span class="keyword">function</span><span class="params">(tag)</span></span>{</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.substring(<span class="number">0</span>, tag.length) == tag;</div><div class="line">}</div><div class="line"><span class="comment">//是否已XX结尾</span></div><div class="line"><span class="built_in">String</span>.prototype.endWith= <span class="function"><span class="keyword">function</span><span class="params">(tag)</span></span>{</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.substring(<span class="keyword">this</span>.length - tag.length) == tag;</div><div class="line">}</div><div class="line"><span class="comment">//StringBuffer</span></div><div class="line"><span class="keyword">var</span> StringBuffer = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">	<span class="keyword">this</span>._strs = <span class="keyword">new</span> <span class="built_in">Array</span>; </div><div class="line">};</div><div class="line">StringBuffer.prototype.append = <span class="function"><span class="keyword">function</span> <span class="params">(str)</span> </span>{ </div><div class="line">	<span class="keyword">this</span>._strs.push(str); </div><div class="line">}; </div><div class="line">StringBuffer.prototype.toString = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>._strs.join(<span class="string">""</span>); </div><div class="line">};</div><div class="line"><span class="built_in">String</span>.prototype.replaceAll = <span class="function"><span class="keyword">function</span><span class="params">(s1,s2)</span></span>{</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(s1,<span class="string">"gm"</span>),s2);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="Arry">Arry</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** Arry ***************/</span></div><div class="line"><span class="comment">//根据数据取得再数组中的索引</span></div><div class="line"><span class="built_in">Array</span>.prototype.getIndex = <span class="function"><span class="keyword">function</span><span class="params">(obj)</span></span>{</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) {</div><div class="line">		<span class="keyword">if</span> (obj == <span class="keyword">this</span>[i]) {</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">}</div><div class="line"><span class="comment">//移除数组中的某元素</span></div><div class="line"><span class="built_in">Array</span>.prototype.remove= <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> </span>{</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) {</div><div class="line">		<span class="keyword">if</span> (obj == <span class="keyword">this</span>[i]) {</div><div class="line">			<span class="keyword">this</span>.splice(i, <span class="number">1</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">}</div><div class="line"><span class="comment">//判断元素是否在数组中</span></div><div class="line"><span class="built_in">Array</span>.prototype.contains= <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> </span>{</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) {</div><div class="line">		<span class="keyword">if</span> (obj == <span class="keyword">this</span>[i]) {</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="浏览器相关操作">浏览器相关操作</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** 浏览器相关操作 ***************/</span></div><div class="line"><span class="comment">//进入全屏模式,  判断各种浏览器，找到正确的方法</span></div><div class="line"><span class="keyword">var</span> launchFullScreen = <span class="function"><span class="keyword">function</span> <span class="params">(element)</span> </span>{</div><div class="line">  <span class="keyword">if</span>(element.requestFullscreen) {</div><div class="line">    element.requestFullscreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(element.mozRequestFullScreen) {</div><div class="line">    element.mozRequestFullScreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(element.webkitRequestFullscreen) {</div><div class="line">    element.webkitRequestFullscreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(element.msRequestFullscreen) {</div><div class="line">    element.msRequestFullscreen();</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">}</div><div class="line"><span class="comment">//退出全屏模式</span></div><div class="line"><span class="keyword">var</span> exitFullScreen = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">  <span class="keyword">if</span>(<span class="built_in">document</span>.exitFullscreen) {</div><div class="line">    <span class="built_in">document</span>.exitFullscreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.mozCancelFullScreen) {</div><div class="line">    <span class="built_in">document</span>.mozCancelFullScreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.webkitExitFullscreen) {</div><div class="line">    <span class="built_in">document</span>.webkitExitFullscreen();</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">//cookie操作</span></div><div class="line"><span class="keyword">var</span> CookieUtil={</div><div class="line">	path: <span class="string">"/"</span>,</div><div class="line">	domain: <span class="string">'demo.j2ee.com'</span>,</div><div class="line">	add: <span class="function"><span class="keyword">function</span><span class="params">(name,val)</span></span>{</div><div class="line">		$.cookie(name, val, {expires: <span class="number">7</span>, path: <span class="keyword">this</span>.path, domain: <span class="keyword">this</span>.domain, secure: <span class="literal">true</span>});</div><div class="line">	},</div><div class="line">	remove: <span class="function"><span class="keyword">function</span><span class="params">(name)</span></span>{</div><div class="line">		$.cookie(name, <span class="literal">null</span>,{path: <span class="keyword">this</span>.path, domain: <span class="keyword">this</span>.domain});</div><div class="line">	},</div><div class="line">	get: <span class="function"><span class="keyword">function</span><span class="params">(name)</span></span>{</div><div class="line">		 $.cookie(name,{path: <span class="keyword">this</span>.path, domain: <span class="keyword">this</span>.domain});</div><div class="line">	}</div><div class="line">}</div><div class="line"><span class="comment">//error</span></div><div class="line"><span class="keyword">var</span> error={</div><div class="line">	 e_404: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		 alertMessage(<span class="string">"404"</span>,<span class="string">"未找到改页面！"</span>,<span class="string">"warning"</span>);</div><div class="line">	 },</div><div class="line">	 e_500: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		 alertMessage(<span class="string">"500"</span>,<span class="string">"服务器内部错误！"</span>,<span class="string">"error"</span>);</div><div class="line">	 },</div><div class="line">	 e_403: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		 alertMessage(<span class="string">"403"</span>,<span class="string">"权限不足！"</span>,<span class="string">"warning"</span>);</div><div class="line">	 }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<h5 id="说明：">说明：</h5>
+<ol>
+<li>在项目中使用一些工具类，公共类是非常有必要的，不仅是后台，前段亦是一样</li>
+<li>这里提供我收集的常用方法封装</li>
+<li>代码可以在资源共享，我的代码中下载。</li>
+</ol>
+<h5 id="注意]]>
+    </summary>
+    
+      <category term="javascript" scheme="http://www.shenjixiang.cn/tags/javascript/"/>
+    
+      <category term="前段" scheme="http://www.shenjixiang.cn/categories/%E5%89%8D%E6%AE%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hibernate的缓存机制]]></title>
+    <link href="http://www.shenjixiang.cn/2014/12/02/hibernate-cache/"/>
+    <id>http://www.shenjixiang.cn/2014/12/02/hibernate-cache/</id>
+    <published>2014-12-02T12:00:45.000Z</published>
+    <updated>2014-12-02T12:39:17.000Z</updated>
+    <content type="html"><![CDATA[<h5 id="之前在校写的，今天放上来，适合java初学者。总的来说分为两类：">之前在校写的，今天放上来，适合java初学者。总的来说分为两类：</h5>
+<h3 id="session缓存(一级缓存):">session缓存(一级缓存):</h3>
+<ul>
+<li>必须有的，不能被卸载，由于Session对象的生命周期通常对应一个数据库事务或者一个应用事务，因此它的缓存是事务范围的缓存。</li>
+<li>在一级缓存中，每个持久化类的实例都有一个对应的OID.</li>
+</ul>
+<h3 id="sessionFactory缓存(二级缓存):">sessionFactory缓存(二级缓存):</h3>
+<ul>
+<li>默认不启用，需手动配置，属于进程范围的缓存，可能出现并发的情况，需使用适当的访问策略。</li>
+<li>hibernate根据id访问数据是，首先到一级缓存去查找，找不到，再看有没有二级缓存，查二级缓存里面有没有数据，如果没有再到数据库查询，再根据id将数据放入缓存中。删除、更新、增加数据的时候，同时更新缓存。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h5 id="之前在校写的，今天放上来，适合java初学者。总的来说分为两类：">之前在校写的，今天放上来，适合java初学者。总的来说分为两类：</h5>
+<h3 id="session缓存(一级缓存):">session缓存(一级缓存):</h3>
+<ul>
+<li>必须有]]>
+    </summary>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/tags/j2EE/"/>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/categories/j2EE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[网站存活关键，独立IP必然发展趋势！！]]></title>
+    <link href="http://www.shenjixiang.cn/2014/11/25/ad-hengchuang/"/>
+    <id>http://www.shenjixiang.cn/2014/11/25/ad-hengchuang/</id>
+    <published>2014-11-25T12:19:49.000Z</published>
+    <updated>2014-12-06T15:13:27.000Z</updated>
+    <content type="html"><![CDATA[<ul>
+<li>今天无意中看到恒创科技独立ip主机终生3.8折全网普及活动。个人觉得很蹊跷，国内国外的iP快枯竭了，已经很紧俏了，价格应该走高才对，为什么相反便宜了？年初朋友购买过一个独立IP主机，光IP费用就180元/年。于是和几个大牛在群里讨论了一通，明白了不少新知识。</li>
+<li>相信大家都经历过网站打不开的情况，主机商回答往往都是说公用IP被攻击之类的，这样就会造成很多无辜的网站受到牵连，收录及权重降低，严重的被K站，据不完全统计80%的主机故障都是这个原因造成。虽然很多站长心里都不平衡，但事实如此，确实没有好的办法来处理公用IP被攻击的问题。如果您的网站要保持高效的长久存活，那么独立ip确实以后会成为主流，这也是我的大神马云的XX网做得这么牛的原因。<h3 id="那独立IP有什么神奇之处？">那独立IP有什么神奇之处？</h3>
+</li>
+<li><p>一个网站使用一个ip，公用IP被攻击不收影响，对关键词排名有更大的优势。有的朋友就要问了，V4IP快枯竭了，如何谈普及，大家都不够使用啊？其我们都想错了，什么V6IP已经酝酿很久了，V4IP一旦枯竭，V6IP段肯定会出来的，那时候独立ip资源只会更多，真心不用担心IP枯竭的事。互联网在发展迅猛，对网站的稳定性要求越来越高，独立IP会像手机一样普及到每个网站。<br><img src="http://www.shenjixiang.cn/image/advertisement/hengchuang-2.png" alt=""></p>
+</li>
+<li><p><label class="markdownI">普及时间：即日起—2014年11月30日<br>  3.8折62%现金卷：hkduli38</label><br>1、订购两年送1年，三年送2年，五年送5年<br>2、3.8折风暴直通车：<a href="http://www.henghost.com/duli.html" target="_blank">www.henghost.com/duli.html</a></p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<ul>
+<li>今天无意中看到恒创科技独立ip主机终生3.8折全网普及活动。个人觉得很蹊跷，国内国外的iP快枯竭了，已经很紧俏了，价格应该走高才对，为什么相反便宜了？年初朋友购买过一个独立IP主机，光IP费用就180元/年。于是和几个大牛在群里讨论了一通，明白了不少新知识。</]]>
+    </summary>
+    
+      <category term="主机" scheme="http://www.shenjixiang.cn/tags/%E4%B8%BB%E6%9C%BA/"/>
+    
+      <category term="主机" scheme="http://www.shenjixiang.cn/categories/%E4%B8%BB%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[jdk自带的两种任务调度器]]></title>
+    <link href="http://www.shenjixiang.cn/2014/11/24/jdk-dispatcher/"/>
+    <id>http://www.shenjixiang.cn/2014/11/24/jdk-dispatcher/</id>
+    <published>2014-11-24T13:08:19.000Z</published>
+    <updated>2014-11-24T13:16:57.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>注：本文只介绍了两种jdk自带的两种任务调度器，根据实际情况使用。更多更复杂的调度需求可以使用Quartz</strong></p>
+<h3 id="1-_JDK_TimerTask">1. JDK TimerTask</h3>
+<ul>
+<li><h5 id="介绍">介绍</h5>
+<p>  Timer 适用于简单任务调度，相当于线程休眠后执行task。<br>  所有任务都是由同一个线程来调度，因此所有任务都是串行执行的，<br>  同一时间只能有一个任务在执行，前一个任务的延迟或异常都将会影响到之后的任务。</p>
+</li>
+<li><h5 id="使用方法">使用方法</h5>
+<p>其中 Timer 负责设定 TimerTask 的起始与间隔执行时间。使用者只需要创建一个 TimerTask 的继承类，实现自己的 run 方法，然后将其丢给 Timer 去执行即可。</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerTest</span> <span class="keyword">extends</span> <span class="title">TimerTask</span> </span>{</div><div class="line"></div><div class="line">	<span class="keyword">private</span> String jobName = <span class="string">""</span>;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="title">TimerTest</span>(String jobName) {</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">		<span class="keyword">this</span>.jobName = jobName;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">		System.out.println(<span class="string">"execute "</span> + jobName);</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) <span class="keyword">throws</span> InterruptedException {</div><div class="line">		Timer timer = <span class="keyword">new</span> Timer();</div><div class="line">		<span class="keyword">long</span> delay1 = <span class="number">1</span> * <span class="number">1000</span>;</div><div class="line">		<span class="keyword">long</span> period1 = <span class="number">1000</span>;</div><div class="line">		<span class="comment">// 从现在开始 1 秒钟之后，每隔 1 秒钟执行一次 job1</span></div><div class="line">		timer.schedule(<span class="keyword">new</span> TimerTest(<span class="string">"job1"</span>), delay1, period1);</div><div class="line">		<span class="keyword">long</span> delay2 = <span class="number">2</span> * <span class="number">1000</span>;</div><div class="line">		<span class="keyword">long</span> period2 = <span class="number">2000</span>;</div><div class="line">		<span class="comment">// 从现在开始 2 秒钟之后，每隔 2 秒钟执行一次 job2</span></div><div class="line">		timer.schedule(<span class="keyword">new</span> TimerTest(<span class="string">"job2"</span>), delay2, period2);</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="2-_JDK_ScheduledExecutor">2. JDK ScheduledExecutor</h3>
+<ul>
+<li><h5 id="介绍-1">介绍</h5>
+<p>  Java 5 推出了基于线程池设计的 ScheduledExecutor<br>  原理：</p>
+<ol>
+<li>每一个被调度的任务都会由线程池中一个线程去执行，因此任务是并发执行的，相互之间不会受到干扰。</li>
+<li>需要注意的是，只有当任务的执行时间到来时，ScheduedExecutor 才会真正启动一个线程，其余时间 ScheduledExecutor 都是在轮询任务的状态。</li>
+</ol>
+</li>
+<li><h5 id="使用方法-1">使用方法</h5>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.ScheduledExecutorService;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledExecutorTest</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>{</div><div class="line">	<span class="keyword">private</span> String jobName = <span class="string">""</span>;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="title">ScheduledExecutorTest</span>(String jobName) {</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">		<span class="keyword">this</span>.jobName = jobName;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">		System.out.println(<span class="string">"execute "</span> + jobName);</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">		<span class="comment">//初始化线程池</span></div><div class="line">		ScheduledExecutorService service = Executors.newScheduledThreadPool(<span class="number">10</span>);</div><div class="line"></div><div class="line">		<span class="keyword">long</span> initialDelay1 = <span class="number">1</span>;</div><div class="line">		<span class="keyword">long</span> period1 = <span class="number">1</span>;</div><div class="line">		<span class="comment">// 从现在开始1秒钟之后，每隔1秒钟执行一次job1。ScheduleAtFixedRate：每次执行时间为上一次任务开始起向后推一个时间间隔</span></div><div class="line">		service.scheduleAtFixedRate(<span class="keyword">new</span> ScheduledExecutorTest(<span class="string">"job1"</span>),</div><div class="line">				initialDelay1, period1, TimeUnit.SECONDS);</div><div class="line"></div><div class="line">		<span class="keyword">long</span> initialDelay2 = <span class="number">1</span>;</div><div class="line">		<span class="keyword">long</span> delay2 = <span class="number">1</span>;</div><div class="line">		<span class="comment">// 从现在开始2秒钟之后，每隔2秒钟执行一次job2。scheduleWithFixedDelay：每次执行时间为上一次任务结束起向后推一个时间间隔</span></div><div class="line">		service.scheduleWithFixedDelay(<span class="keyword">new</span> ScheduledExecutorTest(<span class="string">"job2"</span>),</div><div class="line">				initialDelay2, delay2, TimeUnit.SECONDS);</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>注：本文只介绍了两种jdk自带的两种任务调度器，根据实际情况使用。更多更复杂的调度需求可以使用Quartz</strong></p>
+<h3 id="1-_JDK_TimerTask">1. JDK TimerTask</h3>
+<ul>
+<li><h5 i]]>
+    </summary>
+    
+      <category term="基础" scheme="http://www.shenjixiang.cn/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="基础" scheme="http://www.shenjixiang.cn/categories/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Apache Mina 学习]]></title>
+    <link href="http://www.shenjixiang.cn/2014/10/28/ApacheMina/"/>
+    <id>http://www.shenjixiang.cn/2014/10/28/ApacheMina/</id>
+    <published>2014-10-28T13:23:39.000Z</published>
+    <updated>2014-12-06T05:35:19.000Z</updated>
+    <content type="html"><![CDATA[<p>由于项目需要，提前预备一些知识。凡是做点准备总是有好处的！！！</p>
+<h3 id="MINA框架简介">MINA框架简介</h3>
+<ul>
+<li>MINA是用于开发高性能和高可用性的网络应用程序的基础框架</li>
+<li>通过使用MINA框架可以可以省下处理底层I/O和线程并发等复杂工作，开发人员能够把更多的精力投入到业务设计和开发当中</li>
+<li>MINA框架的应用比较广泛，应用的开源项目有Apache Directory、AsyncWeb、Apache Qpid、QuickFIX/J、Openfire、SubEthaSTMP、red5等。</li>
+</ul>
+<h3 id="MINA框架的特点">MINA框架的特点</h3>
+<ul>
+<li>基于java NIO类库开发；采用非阻塞方式的异步传输；</li>
+<li>事件驱动；支持批量数据传输；支持TCP、UDP协议；串口通讯程序；</li>
+<li>控制反转的设计模式（支持Spring）；采用优雅的松耦合架构；可灵活的加载过滤器机制；单元测试更容易实现；</li>
+<li>可自定义线程的数量，以提高运行于多处理器上的性能；采用回调的方式完成调用，线程的使用更容易。</li>
+</ul>
+<h3 id="MINA与NETTY比较">MINA与NETTY比较</h3>
+<ul>
+<li>由于Netty的主导作者与Mina的主导作者是同一人，出自同一人之手的Netty在设计理念上与Mina基本上是一致的</li>
+<li>Mina和Netty都是Java领域高性能和高可伸缩性网络应用程序的网络应用框架，在实际生产应用中都是不错的选择。</li>
+<li>Netty 是一个吸收了多种协议的实现经验，这些协议包括FTP,SMTP,HTTP，各种二进制，文本协议，并经过相当精心设计的项目</li>
+</ul>
+<h3 id="MINA使用简介">MINA使用简介</h3>
+<ol>
+<li>当客户首次访问采用MINA编写的程序时，IoAcceptor作为线程运行，负责接受来自客户的请求。</li>
+<li>当有客户请求连接时，创建一个Session，该Session与IoProcessor、SocketChannel以及IOService联系起来。</li>
+<li>IoProcessor也作为另外一个线程运行，定时检查(轮询)客户是否有数据到来，并对客户请求进行处理，依次调用在IOService注册的各个IoFilter，最后调用IoHandler进行最终的逻辑处理，再将处理后的结果Filter后返回给客户端。</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>由于项目需要，提前预备一些知识。凡是做点准备总是有好处的！！！</p>
+<h3 id="MINA框架简介">MINA框架简介</h3>
+<ul>
+<li>MINA是用于开发高性能和高可用性的网络应用程序的基础框架</li>
+<li>通过使用MINA框架可以可以省下处理底层I]]>
+    </summary>
+    
+      <category term="通信" scheme="http://www.shenjixiang.cn/tags/%E9%80%9A%E4%BF%A1/"/>
+    
+      <category term="j2EE" scheme="http://www.shenjixiang.cn/categories/j2EE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[MySQL海量数据优化策略总结]]></title>
+    <link href="http://www.shenjixiang.cn/2014/10/28/mysqlMajor/"/>
+    <id>http://www.shenjixiang.cn/2014/10/28/mysqlMajor/</id>
+    <published>2014-10-28T13:23:39.000Z</published>
+    <updated>2014-12-20T08:05:07.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="优化事项">优化事项</h3>
+<ul>
+<li><strong>对查询来说，切记避免全表扫描！！！</strong></li>
+</ul>
+<ol>
+<li>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</li>
+<li>避免在 where 子句中对字段进行 <codei>null</codei> 值判断，否则将导致引擎放弃使用索引而进行全表扫描，<br> 如：select id from t where num is null<br>　　可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：<br>　　select id from t where num=0</li>
+<li>避免在 where 子句中使用 <codei>!=</codei>、<codei>&lt;&gt; </codei>、<codei>or </codei>、<codei>in </codei>、<codei>not in </codei>、<codei>like</codei>操作符，否则将引擎放弃使用索引而进行全表扫描。<br> 如：select id from t where num=10 or num=20<br>　　可以这样查询：<br>　　select id from t where num=10<br>　　union all<br>　　select id from t where num=20</li>
+<li>应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：<br>　　如：select id from t where substring(name,1,3)=’abc’ —name以abc开头的id　<br>　　应改为:<br>　　select id from t where name like ‘abc%’</li>
+<li>不要在 where 子句中的<codei>=</codei>左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</li>
+<li>很多时候用 exists 代替 in 是一个好的选择：<br>　　select num from a where num in(select num from b)<br>　　用下面的语句替换：<br>　　select num from a where exists(select 1 from b where num=a.num)</li>
+<li><codei>索引并不是越多越好</codei>，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引。一个表的索引数最好不要超过6个。</li>
+<li>应尽可能的避免更新 clustered（聚集索引，索引可分聚集和非聚集索引） 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</li>
+<li>尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</li>
+<li>尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</li>
+<li>避免频繁创建和删除临时表，以减少系统表资源的消耗。</li>
+<li>在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。</li>
+<li>如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。</li>
+<li>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</li>
+<li>在所有的存储过程和触发器的开始处设置 SET NOCOUNT ON ，在结束时设置 SET NOCOUNT OFF 。无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息。</li>
+<li>尽量避免大事务操作，提高系统并发能力。</li>
+<li>尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</li>
+</ol>
+<h3 id="优化方法总结">优化方法总结</h3>
+<ol>
+<li>使用索引来更快地遍历表。<br>缺省情况下建立的索引是非群集索引，但有时它并不是最佳的。在非群集索引下，数据在物理上随机存放在数据页上。合理的索引设计要建立在对各种查询的分析和预测上。一般来说：<br>a.有大量重复值、且经常有范围查询( &gt; ,&lt; ，&gt; =,&lt; =)和order by、group by发生的列，可考虑建立群集索引;<br>b.经常同时存取多列，且每列都含有重复值可考虑建立组合索引;<br>c.组合索引要尽量使关键查询形成索引覆盖，其前导列一定是使用最频繁的列。索引虽有助于提高性能但不是索引越多越好，恰好相反过多的索引会导致系统低效。用户在表中每加进一个索引，维护索引集合就要做相应的更新工作。</li>
+<li>任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边。</li>
+<li>IN、OR子句常会使用工作表，使索引失效。如果不产生大量重复值，可以考虑把子句拆开。拆开的子句中应该包含索引。</li>
+<li>只要能满足你的需求，应尽可能使用更小的数据类型：例如使用MEDIUMINT代替INT</li>
+<li>尽量把所有的列设置为NOT NULL，如果你要保存NULL，手动去设置它，而不是把它设为默认值。</li>
+<li>尽量少用VARCHAR、TEXT、BLOB类型</li>
+<li>如果你的数据只有你所知的少量的几个。最好使用ENUM类型</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="优化事项">优化事项</h3>
+<ul>
+<li><strong>对查询来说，切记避免全表扫描！！！</strong></li>
+</ul>
+<ol>
+<li>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。]]>
+    </summary>
+    
+      <category term="数据库" scheme="http://www.shenjixiang.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="数据库" scheme="http://www.shenjixiang.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[mysql集群搭建]]></title>
+    <link href="http://www.shenjixiang.cn/2014/10/23/mysql-cluster/"/>
+    <id>http://www.shenjixiang.cn/2014/10/23/mysql-cluster/</id>
+    <published>2014-10-23T13:23:39.000Z</published>
+    <updated>2014-10-28T13:38:06.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="集群常用架构">集群常用架构</h3>
+<p>由于时间关系，项目目前暂停</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="集群常用架构">集群常用架构</h3>
+<p>由于时间关系，项目目前暂停</p>
+]]>
+    </summary>
+    
+      <category term="数据库" scheme="http://www.shenjixiang.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="分布式" scheme="http://www.shenjixiang.cn/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用shell脚本启动zookeeper集群]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/16/zookeeper-2/"/>
+    <id>http://www.shenjixiang.cn/2014/09/16/zookeeper-2/</id>
+    <published>2014-09-16T14:35:00.000Z</published>
+    <updated>2014-10-12T13:50:08.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="步骤">步骤</h2>
+<ul>
+<li>采用shell脚本启动zookeeper，首先新建文件start.sh</li>
+<li>写入内容（rh1 rh2 rh3 分别是主机名。此处需要ssh）：#!/bin/sh<br>echo “start zkServer…”<br>for i in rh1 rh2 rh3<br>do<br>ssh $i “/usr/local/zookeeper3.4/bin/zkServer.sh start”<br>done</li>
+<li>写好后保存，加上执行权限：chmod u+x start.sh</li>
+<li>运行：./start.sh</li>
+<li>你会看见是启动成功了的，有输出。但是你输入jps查看的时候，会发现没有QuorumPeerMain 进程。说明没有启动成功。</li>
+</ul>
+<h2 id="分析原因">分析原因</h2>
+<ul>
+<li>首先需要知道 交互式shell和非交互式shell、登录shell和非登录shell是有区别的</li>
+<li>在登录shell里，环境信息需要读取/etc/profile和~ /.bash_profile, ~/.bash_login, and ~/.profile按顺序最先的一个，并执行其中的命令。除非被 —noprofile选项禁止了；</li>
+<li>在非登录shell里，环境信息只读取 /etc/bash.bashrc和~/.bashrc 手工执行是属于登陆shell，脚本执行数据非登陆shell，而我的linux环境配置中只对/etc/profile进行了jdk1.6等环境的配置，所以脚本执行/usr/local/zookeeper3.4/bin/zkServer.sh start 启动zookeeper失败了</li>
+</ul>
+<h2 id="解决方法">解决方法</h2>
+<ul>
+<li>把profile的配置信息echo到.bashrc中  echo ‘source /etc/profile’ &gt;&gt; ~/.bashrc</li>
+<li>在/zookeeper/bin/zkEnv.sh的中开始位置添加 export JAVA_HOME=/usr/local/jdk1.6（就像hadoop中对hadoop-env.sh的配置一样） </li>
+<li>启动再看看</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="步骤">步骤</h2>
+<ul>
+<li>采用shell脚本启动zookeeper，首先新建文件start.sh</li>
+<li>写入内容（rh1 rh2 rh3 分别是主机名。此处需要ssh）：#!/bin/sh<br>echo “start zkServer]]>
+    </summary>
+    
+      <category term="zookeeper" scheme="http://www.shenjixiang.cn/tags/zookeeper/"/>
+    
+      <category term="zookeeper" scheme="http://www.shenjixiang.cn/categories/zookeeper/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[zookeeper安装配置及简介]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/15/zookeeper-1/"/>
+    <id>http://www.shenjixiang.cn/2014/09/15/zookeeper-1/</id>
+    <published>2014-09-15T13:05:47.000Z</published>
+    <updated>2014-09-16T14:36:23.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="zookeeper简介">zookeeper简介</h2>
+<ul>
+<li>zookeeper是一个为分布式应用所设计的开源协调服务。为用户提供同步、配置管理、分组和命名等服务。目的为减轻分布式应用所承担的协调任务。</li>
+<li>可使用zookeeper提供的接口方便的实现一致性、组管理、leader选举及某些协议。</li>
+</ul>
+<h2 id="zookeeper安装">zookeeper安装</h2>
+<ul>
+<li>zookeeper可以在不同的系统中运行，比如linux，solaris，FreeBSD、win32、MacOSX</li>
+<li>安装条件：java1.6以上，至少三个节点。一般为奇数个</li>
+<li>首先到官网下载最新版本zookeeper</li>
+<li>解压：<br>加执行权限：chmod u+x zookeeper-3.4.5.tar.gz<br>tar -zxvf zookeeper-3.4.5.tar.gz<br>重命名：mv zookeeper-3.4.5 zookeeper3.4</li>
+<li>环境变量配置<br>vi /etc/profile<br>加入<br>export ZOOKEEPER_HOME=/usr/local/zookeeper3.4<br>export PATH=$ZOOKEEPER_HOME/conf:$ZOOKEEPER_HOME/bin:$PATH<br>保存退出，记得source一下，使其文件生效</li>
+</ul>
+<h2 id="zookeeper配置">zookeeper配置</h2>
+<ul>
+<li>配置zookeeper：在conf下新建一个zoo.cfg文件</li>
+<li>心跳时间，单位毫秒。最小的会话超时为tickTime的2倍<br>tickTime=2000</li>
+<li>存储内存中数据库快照的位置<br>dataDir=/usr/local/zookeeper3.4/tmp</li>
+<li>允许follower(相对leader的客户端)连接并同步到leader的初始化连接时间，为tickTime的倍数。</li>
+<li>不能超过tickTime<br>initLimit=20</li>
+<li>表示leader与follower之间请求与应答时间长度。</li>
+<li>如果不能在指定时间内通信，那么视follower宕机。将被丢弃。<br>syncLimit=10</li>
+<li>监听客户端连接端口<br>clientPort=2181</li>
+<li>日志路径<br>dataLogDir=/usr/local/zookeeper3.4/log</li>
+<li>server.1代表标示不同的服务器,必须唯一。myid文件里的值</li>
+<li>2888端口用于连接主机器，3888用于leader选举<br>server.1=rh1:2888:3888<br>server.2=rh2:2888:3888<br>server.3=rh3:2888:3888</li>
+<li>以上均为一般配置，以下为特殊需要配置</li>
+<li>限制zookeeper客户端的数量，通过ip来限制并发数。</li>
+<li>0为取消限制<br>maxClientCnxns=3</li>
+<li>minSessionTimeout=1000</li>
+<li>maxSessionTimeout=50000</li>
+</ul>
+<h1 id="启动zookeeper">启动zookeeper</h1>
+<ul>
+<li>运行前注意目录是否存在，myid文件是否存在。必须需要在每台机子上输入命令：/usr/local/zookeeper3.4/bin/zkServer.sh start。刚开始会报错，因为其他机器的zookeeper还没跑起来</li>
+<li>如有报错请看zookeeper.out文件里的内容</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="zookeeper简介">zookeeper简介</h2>
+<ul>
+<li>zookeeper是一个为分布式应用所设计的开源协调服务。为用户提供同步、配置管理、分组和命名等服务。目的为减轻分布式应用所承担的协调任务。</li>
+<li>可使用zookeeper提]]>
+    </summary>
+    
+      <category term="zookeeper" scheme="http://www.shenjixiang.cn/tags/zookeeper/"/>
+    
+      <category term="zookeeper" scheme="http://www.shenjixiang.cn/categories/zookeeper/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Pig Latin语言]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/13/pig-2/"/>
+    <id>http://www.shenjixiang.cn/2014/09/13/pig-2/</id>
+    <published>2014-09-13T06:44:05.000Z</published>
+    <updated>2014-09-14T14:54:36.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Pig_Latin语言简介">Pig Latin语言简介</h2>
+<ul>
+<li>与传统的关系数据库中的操作非常相似，但是更侧重于查询与分析</li>
+<li>程序员无需关心运行效率，更专注于程序的编写</li>
+<li>通常安照以下流程来编写<ul>
+<li>通过一条load语句从文件系统中读取数据</li>
+<li>通过一系列“转换”语句对数据进行处理</li>
+<li>通过一条store语句把处理结果输出到文件系统中，或者通过DUMP语句输出到屏幕上</li>
+</ul>
+</li>
+</ul>
+<h2 id="Pig_Latin的数据类型">Pig Latin的数据类型</h2>
+<ul>
+<li>数据模式<ul>
+<li>组织形式包括：关系(relation)、包(bag)、元组(tuple)和域(field)</li>
+<li>一个关系就是一个包</li>
+<li>包是元组的集合</li>
+<li>元组是域的有序集合</li>
+<li>域是一个数据块</li>
+<li>一个pig关系是一个有元组组成的包，pig中的关系和关系数据库中的表很相似，包的元组相当于表中的行。pig中不需要每一个元组包含相同数目或者相同位置的域，也不需要具有相同的数据类型。</li>
+<li>关系是无序的，所以pig不能保证元组按特定的顺序来执行</li>
+</ul>
+</li>
+<li>数据类型<br><img src="http://www.shenjixiang.cn/image/pig/pig-data-type.jpg" alt="pig数据类型"><br><img src="http://www.shenjixiang.cn/image/pig/pig-data-type-2.jpg" alt="pig数据类型2"></li>
+<li>pig常用关键字<ul>
+<li>关系运算符<br>— load ‘data’ [using 函数] [as 字段类型] ;<br>列如：load ‘myfile.txt’ using PigStorage(‘\t’) as(f1:int,f2:int,f3:int);<br>— store：将结果保存到文件系统中，语法如下：<br>store 关系名称 into ‘目录名’ [using 函数]<br>— Foreach：基于数据的列进行数据转换</li>
+<li>诊断运算符<br>— Dump：dump 关系名<br>A=load ‘file.txt’ as (name:chararray,age:int,gpa:float);<br>dump A;<br>这里pig将A中的数据显示在屏幕上<br>— Describe：作用是返回一个名称的模式<br>— load/store函数：作用是加载、存储utf-8格式的数据，语法如下：<br>PigStorage(‘\t’) ‘\t’为与域界定符，’\t’为默认值</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何使用Pig_Latin语言">如何使用Pig Latin语言</h2>
+<ul>
+<li>输入pig -x mapreduce进入Grunt Shell方式</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Pig_Latin语言简介">Pig Latin语言简介</h2>
+<ul>
+<li>与传统的关系数据库中的操作非常相似，但是更侧重于查询与分析</li>
+<li>程序员无需关心运行效率，更专注于程序的编写</li>
+<li>通常安照以下流程来编写<ul>
+<li]]>
+    </summary>
+    
+      <category term="Pig" scheme="http://www.shenjixiang.cn/tags/Pig/"/>
+    
+      <category term="Pig" scheme="http://www.shenjixiang.cn/categories/Pig/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[了解pig及安装]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/12/pig-1/"/>
+    <id>http://www.shenjixiang.cn/2014/09/12/pig-1/</id>
+    <published>2014-09-12T14:30:45.000Z</published>
+    <updated>2014-09-12T15:23:31.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="什么是pig_?">什么是pig ?</h2>
+<ul>
+<li>Pig是一个基于Hadoop的大规模数据分析平台，它提供的SQL-LIKE语言叫Pig Latin，该编译器会把请求自动优化并处理MapReduce运算，这样使Pig易于编程，不用担心效率。自动对集群分配和回收。</li>
+<li>Pig可加载数据、表达转换数据以及存储最终结果。Pig可扩展使用Java中添加的自定义数据类型并支持数据转换。</li>
+<li>Pig与Hive相比。Hive更适合于数据仓库的任务。Pig赋予开发人员在大数据集领域更多的灵活性，并允许开发简洁的脚本用于转换数据流以便嵌入到较大的 应用程序。Pig相比Hive相对轻量，它主要的优势是相比于直接使用Hadoop Java APIs可大幅削减代码量。</li>
+<li>Hive与SQL相似促使 其成为Hadoop与其他BI工具结合的理想交集。</li>
+</ul>
+<h2 id="pig安装">pig安装</h2>
+<ul>
+<li>解压：<br>加执行权限：chmod u+x pig-0.13.0.tar.gz<br>tar -zxvf pig-0.13.0.tar.gz<br>重命名：mv pig-0.13.0 pig0.13</li>
+<li>环境变量配置（几乎每安装一个都需配置/etc/profile）</li>
+<li>vi /etc/profile<br>加入<br>export PIG_HOME=/usr/local/pig0.13<br>export PATH=$PIG_HOME/conf:$PIG_HOME/bin:$PATH</li>
+<li>保存退出，记得source一下，使其文件生效</li>
+<li>使用命令 pig -help看看有没有安装成功</li>
+</ul>
+<h2 id="启动pig">启动pig</h2>
+<ul>
+<li>pig运行分为local模式和mapReduce模式，这里采用mapReduce模式。</li>
+<li>运行方式：<ol>
+<li>Grunt Shell方式：输入pig -x mapreduce进入</li>
+<li>脚本文件方式：输入pig -x mapreduce script.pig运行脚本</li>
+<li>嵌入式程序：首先编译：javac -cp pig-0.13.0-h1.jar mapreduce.java 然后执行：java -cp pig-0.13.0-h1.jar mapreduce</li>
+</ol>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="什么是pig_?">什么是pig ?</h2>
+<ul>
+<li>Pig是一个基于Hadoop的大规模数据分析平台，它提供的SQL-LIKE语言叫Pig Latin，该编译器会把请求自动优化并处理MapReduce运算，这样使Pig易于编程，不用担心效率。自动对集]]>
+    </summary>
+    
+      <category term="Pig" scheme="http://www.shenjixiang.cn/tags/Pig/"/>
+    
+      <category term="Pig" scheme="http://www.shenjixiang.cn/categories/Pig/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[深入了解Mahout算法]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/10/mahout-2/"/>
+    <id>http://www.shenjixiang.cn/2014/09/10/mahout-2/</id>
+    <published>2014-09-10T14:03:26.000Z</published>
+    <updated>2014-09-10T14:51:29.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="频繁模式挖掘">频繁模式挖掘</h2>
+<ul>
+<li>比如“尿布与啤酒的故事”，尿布与啤酒的经常一同出现便是一组频繁模式，还有例如购物篮数据分析、交叉购物、DNA序列分析、预测分析。</li>
+<li>经典的频繁模式挖掘包括Apriori算法、fpgrowth算法、AGM算法、PrefixSapn算法等等…</li>
+<li>使用命令：mahout fpg来进行频繁模式挖掘<br><img src="http://www.shenjixiang.cn/image/mahout/mahout-fpg-cfg.jpg" alt="mahout-fpg-命令参数"></li>
+</ul>
+<h2 id="聚类和分类">聚类和分类</h2>
+<ul>
+<li>我的理解聚类就是将大致相似的东西放在一起，还可再聚类。分类就是很明确的分清楚这是什么</li>
+<li>还有很多很多东西，比如构建一个推荐引擎，这里暂时不讲</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="频繁模式挖掘">频繁模式挖掘</h2>
+<ul>
+<li>比如“尿布与啤酒的故事”，尿布与啤酒的经常一同出现便是一组频繁模式，还有例如购物篮数据分析、交叉购物、DNA序列分析、预测分析。</li>
+<li>经典的频繁模式挖掘包括Apriori算法、fpgrowth]]>
+    </summary>
+    
+      <category term="Mahout" scheme="http://www.shenjixiang.cn/tags/Mahout/"/>
+    
+      <category term="Mahout" scheme="http://www.shenjixiang.cn/categories/Mahout/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Mahout了解及配置]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/09/mahout-1/"/>
+    <id>http://www.shenjixiang.cn/2014/09/09/mahout-1/</id>
+    <published>2014-09-09T14:31:39.000Z</published>
+    <updated>2014-09-10T14:00:26.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="了解">了解</h2>
+<ul>
+<li>apache Mahout主要是建立可伸缩的机器学习算法。针对大规模的数据。</li>
+<li>apache Mahout的算法运行在hadoop下，通过mapreduce实现。也可不依赖hadoop，即非分布式算法。</li>
+<li>该项目主要包括以下五部分：<br>— 频繁模式挖掘：挖掘数据中频繁出现的项集<br>— 聚类：将文本、文档之类的数据分成局部相关的组<br>— 分类：利用已存在的分类文档训练分类器，对未分类的文档进行分类<br>— 推荐引擎（协同过滤）：获得用户的行为并从中发现用户可能喜欢的事物<br>— 频繁子项挖掘：利用一个项集（查询记录或购物目录）去识别经常一起出现的项目<br>— 目前已经有很多技术的算法了</li>
+</ul>
+<h2 id="安装Mahout">安装Mahout</h2>
+<ul>
+<li>Mahout可在本地模式下运行，也可运行在hadoop下，此处运行在hadoop下。到<a href="http://apache.fayea.com/apache-mirror/mahout/" target="_blank" rel="external">mahout下载</a></li>
+<li>解压：<br>— 加权限:chmod u+x mahout-distribution-0.9.tar.gz<br>— tar -zxvf mahout-distribution-0.9.tar.gz</li>
+<li>配置环境变量<br>— 使用命令 vi /etc/profile<br>— export MAHOUT_HOME=/usr/local/mahout0.9<br>— export MAHOUT_CONF_DIR=$MAHOUT_HOME/conf<br>— export PATH=$MAHOUT_HOME/conf:$MAHOUT_HOME/bin:$PATH<br>— 保存退出，source一下。使用mahout -help看看是否安装成功</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="了解">了解</h2>
+<ul>
+<li>apache Mahout主要是建立可伸缩的机器学习算法。针对大规模的数据。</li>
+<li>apache Mahout的算法运行在hadoop下，通过mapreduce实现。也可不依赖hadoop，即非分布式算法。</]]>
+    </summary>
+    
+      <category term="Mahout" scheme="http://www.shenjixiang.cn/tags/Mahout/"/>
+    
+      <category term="Mahout" scheme="http://www.shenjixiang.cn/categories/Mahout/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hbase客户端操作]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/04/hbase-3/"/>
+    <id>http://www.shenjixiang.cn/2014/09/04/hbase-3/</id>
+    <published>2014-09-04T14:23:13.000Z</published>
+    <updated>2014-09-08T15:52:33.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Rest和Thrift接口">Rest和Thrift接口</h2>
+<ul>
+<li>hbase的rest和thrift接口支持xml、protobuf、和二进制数据编码等操作</li>
+</ul>
+<h2 id="java_API">java API</h2>
+<ul>
+<li>大体包括：hbase自身管理部分、avro部分、hbase客户端部分、mapreduce部分、rest部分、thrift部分、zookeeper等等。<br><img src="http://www.shenjixiang.cn/image/hbase/hbaseJavaAPI.jpg" alt="hbaseJavaAPI"></li>
+<li>使用Eclipse开发HBase<ul>
+<li>第三方访问hbase时，首先需访问zookeeper，因为hbase重要信息保存在zookeeper中，而zookeeper集群是由hbase-site.xml指定的，所以需找到hbase-site.xml文件。通过classpath来指定</li>
+<li>将所需jar包（hbase的lib目录下全部加上hadoop-core-1.x.jar，window下注意fileUtil类去掉check），拷贝hbse-site.xml到项目目录下，在libraries里点add class folder选择hbase-site.xml目录</li>
+<li>列子：输入hdfs上的两个文件，采用mapReduce统计，输出结果到Hbase中。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.HBaseConfiguration;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.HColumnDescriptor;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.HTableDescriptor;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.HBaseAdmin;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableOutputFormat;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableReducer;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.util.Bytes;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.NullWritable;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.TextInputFormat;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HBaseWordCount</span> </span>{	</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Map</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>{</div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span>(LongWritable key, Text value, Context context)</div><div class="line">			<span class="keyword">throws</span> IOException, InterruptedException {</div><div class="line">		String[] s = value.toString().trim().split(<span class="string">" "</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">for</span> (String str : s) {</div><div class="line">			context.write(<span class="keyword">new</span> Text(str), <span class="keyword">new</span> IntWritable(<span class="number">1</span>));</div><div class="line">		}</div><div class="line">	}</div><div class="line">}	</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Reduce</span> <span class="keyword">extends</span> <span class="title">TableReducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">NullWritable</span>&gt;</span>{</div><div class="line">	<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span>(Text key, Iterable&lt;IntWritable&gt; values,Context context)</div><div class="line">			<span class="keyword">throws</span> IOException, InterruptedException {</div><div class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</div><div class="line">		<span class="keyword">for</span> (IntWritable i : values) {</div><div class="line">			sum+=i.get();</div><div class="line">		}</div><div class="line">		Put put= <span class="keyword">new</span> Put(Bytes.toBytes(key.toString()));</div><div class="line">		<span class="comment">//列族为content，修饰符为count，列值数目</span></div><div class="line">		put.add(Bytes.toBytes(<span class="string">"content"</span>),Bytes.toBytes(<span class="string">"count"</span>),Bytes.toBytes(String.valueOf(sum)));</div><div class="line">		context.write(NullWritable.get(), put);</div><div class="line">	}		</div><div class="line">}	</div><div class="line"><span class="annotation">@SuppressWarnings</span>({ <span class="string">"deprecation"</span>, <span class="string">"resource"</span> })</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createHBaseTable</span>(String table) <span class="keyword">throws</span> Exception{</div><div class="line">	HTableDescriptor htd = <span class="keyword">new</span> HTableDescriptor(table);</div><div class="line">	HColumnDescriptor col = <span class="keyword">new</span> HColumnDescriptor(<span class="string">"content"</span>);</div><div class="line">	htd.addFamily(col);</div><div class="line">	HBaseConfiguration config = <span class="keyword">new</span> HBaseConfiguration();</div><div class="line">	HBaseAdmin admin = <span class="keyword">new</span> HBaseAdmin(config);</div><div class="line">	<span class="keyword">if</span>(admin.tableExists(table)){</div><div class="line">		System.out.println(<span class="string">"table:'"</span>+table+<span class="string">"' exits"</span>);</div><div class="line">		admin.disableTable(table);</div><div class="line">		admin.deleteTable(table);</div><div class="line">	}</div><div class="line">	System.out.println(<span class="string">"create '"</span>+table+<span class="string">"' table"</span>);</div><div class="line">	admin.createTable(htd);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) <span class="keyword">throws</span> Exception {</div><div class="line">	String tableName = <span class="string">"wordcount"</span>;</div><div class="line">	Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">	conf.set(TableOutputFormat.OUTPUT_TABLE, tableName);</div><div class="line">	createHBaseTable(tableName);		</div><div class="line">	Job job = <span class="keyword">new</span> Job(conf,<span class="string">"wordcount table with "</span>+args[<span class="number">0</span>]);</div><div class="line">	job.setJarByClass(HBaseWordCount.class);</div><div class="line">	job.setNumReduceTasks(<span class="number">3</span>);</div><div class="line">	job.setMapperClass(Map.class);</div><div class="line">	job.setReducerClass(Reduce.class);</div><div class="line">	job.setMapOutputKeyClass(Text.class);</div><div class="line">	job.setMapOutputValueClass(IntWritable.class);</div><div class="line">	job.setInputFormatClass(TextInputFormat.class);</div><div class="line">	job.setOutputFormatClass(TableOutputFormat.class);</div><div class="line">	FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]));</div><div class="line">	System.exit(job.waitForCompletion(<span class="keyword">true</span>)?<span class="number">0</span>:<span class="number">1</span>);</div><div class="line">}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Rest和Thrift接口">Rest和Thrift接口</h2>
+<ul>
+<li>hbase的rest和thrift接口支持xml、protobuf、和二进制数据编码等操作</li>
+</ul>
+<h2 id="java_API">java API</h2>
+]]>
+    </summary>
+    
+      <category term="HBase" scheme="http://www.shenjixiang.cn/tags/HBase/"/>
+    
+      <category term="HBase" scheme="http://www.shenjixiang.cn/categories/HBase/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hbase体系结构]]></title>
+    <link href="http://www.shenjixiang.cn/2014/09/03/hbase-2/"/>
+    <id>http://www.shenjixiang.cn/2014/09/03/hbase-2/</id>
+    <published>2014-09-03T15:00:15.000Z</published>
+    <updated>2014-09-08T10:40:23.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="主从架构">主从架构</h2>
+<ul>
+<li>由HRegion和HMaster服务器构成，HMaster负责管理，所有的通信和协调由zookeeper处理.</li>
+<li>HBase逻辑上的表被划分成多个HRegion，分别存储到HRegion服务器集群中。HMaster中存的是数据到Hregion的映射<br><img src="http://www.shenjixiang.cn/image/hbase/hbase体系结构.jpg" alt="hbase体系结构"></li>
+<li>HRegion分为：HLOG（存储数据日志）和HRegion（实际数据）：很多store组成，每一个store存储一个列族。每一个store由多个storeFile组成，为hbase最小存储单元</li>
+<li>数据的删除和更新均在合并的时候进行。采用追加的方式进行更新</li>
+<li>HBase Master服务器（不存在单点故障，因为可以启动多个HMaster，通过zookeeper保证总有一个HMaster在运行）：管理对table的增删改查，管理Hregion服务器负载均衡，负责新HRegion的分配，迁移失效的HRegion服务器的HRegion</li>
+</ul>
+<h2 id="数据模型">数据模型</h2>
+<ul>
+<li>hbase中的数据都是字符串，采用稀疏存储</li>
+<li>索引是行关键字、列关键字和时间戳</li>
+<li>每一行都有一个可排序的主键和任意多的列，所以同一张表的每一行数据可以有不同的列</li>
+<li>hbase的写操作都是琐行的，每一次更新都会使用时间戳来标记，Hbase会保留一定数量的版本</li>
+<li>虽然每个表由很多行组成，但在物理存储上，是按照列来保存的</li>
+<li>HBase表中的每个列都归属于某个列族，列族必须作为表模式(schema)定义的一部分预先给出，列名以列族作为前缀，每个“列族”都可以有多个列成员(column)，HBase把同一列族里面的数据存储在同一目录下，由几个文件保存。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="主从架构">主从架构</h2>
+<ul>
+<li>由HRegion和HMaster服务器构成，HMaster负责管理，所有的通信和协调由zookeeper处理.</li>
+<li>HBase逻辑上的表被划分成多个HRegion，分别存储到HRegion服务器集群中]]>
+    </summary>
+    
+      <category term="HBase" scheme="http://www.shenjixiang.cn/tags/HBase/"/>
+    
+      <category term="HBase" scheme="http://www.shenjixiang.cn/categories/HBase/"/>
+    
+  </entry>
+  
+</feed>

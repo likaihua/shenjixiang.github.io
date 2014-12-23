@@ -1,0 +1,518 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  
+    <title>js常用方法使用总结 | 沈吉祥的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="沈吉祥">
+	<meta name="keywords" content="js常用方法使用总结,云计算,个人博客,java,java博客,hexo,hexo博客,沈吉祥的博客,沈吉祥">
+	<meta name="baidu-site-verification" content="SXTXec2rT4">
+	<meta name="alexaVerifyID" content="K3vQ9PS2ifPW0Nr7kp2PsGQ49hA"/>
+	<meta name="generator" content="沈吉祥的博客">
+    
+    <meta name="description" content="说明：
+
+在项目中使用一些工具类，公共类是非常有必要的，不仅是后台，前段亦是一样
+这里提供我收集的常用方法封装
+代码可以在资源共享，我的代码中下载。
+
+注意：
+
+字符串的拼接一定使用StringBuffer来拼接，否则容易造成浏览器卡顿或内存溢出。特别是针对一些执行js效率不高的浏览器！！
+经常对输">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="沈吉祥的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+	<link rel="index" title="js常用方法使用总结" href="/2014/12/06/js-commonly/"> 
+    <link rel="home" title="沈吉祥的博客" href="http://www.shenjixiang.cn"> 
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="沈吉祥的博客">沈吉祥的博客</a></h1>
+				<h2 class="blog-motto">人生不应该是看得到未来的</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/" target="_self">主页</a></li>
+					
+						<li><a href="/archives" target="_self">全部文章</a></li>
+					
+						<li><a href="/resources" target="_self">资源共享</a></li>
+					
+						<li><a href="/photo" target="_self">相册</a></li>
+					
+						<li><a href="/about" target="_self">关于我</a></li>
+					
+						<li><a href="/say" target="_self">留言版</a></li>
+					
+					<li>
+					
+					</li>
+                <li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>
+
+				</ul>
+			</nav>	
+</div>
+
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		
+<header class="article-info clearfix">
+ 
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/06/js-commonly/" title="js常用方法使用总结" itemprop="url">js常用方法使用总结</a>
+  </h1>
+  
+  <p class="article-author">作者：
+    
+      <a href="http://www.shenjixiang.cn" title="沈吉祥">沈吉祥</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-12-06T05:32:23.000Z" itemprop="datePublished">12月06 2014</time>&nbsp;
+    更新日期：<time datetime="2014-12-06T07:10:07.000Z" itemprop="dateModified">12月06 2014</time>
+    
+  </p>
+   
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#说明："><span class="toc-number">1.</span> <span class="toc-text">说明：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意："><span class="toc-number">2.</span> <span class="toc-text">注意：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date工具类"><span class="toc-number"></span> <span class="toc-text">Date工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公共工具类"><span class="toc-number"></span> <span class="toc-text">公共工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String工具类"><span class="toc-number"></span> <span class="toc-text">String工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arry"><span class="toc-number"></span> <span class="toc-text">Arry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器相关操作"><span class="toc-number"></span> <span class="toc-text">浏览器相关操作</span></a>
+		</div>
+		
+		<h5 id="说明：">说明：</h5>
+<ol>
+<li>在项目中使用一些工具类，公共类是非常有必要的，不仅是后台，前段亦是一样</li>
+<li>这里提供我收集的常用方法封装</li>
+<li>代码可以在资源共享，我的代码中下载。</li>
+</ol>
+<h5 id="注意：">注意：</h5>
+<ol>
+<li>字符串的拼接一定使用StringBuffer来拼接，否则容易造成浏览器卡顿或内存溢出。特别是针对一些执行js效率不高的浏览器！！</li>
+<li>经常对输入框里内容清空，对textarea，可以直接$(“textarea”).empty();如果使用$(“textarea”).html(“”);也可能会造成浏览器内存溢出！！</li>
+</ol>
+<h3 id="Date工具类">Date工具类</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> date工具类 <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>/</div><div class="line">Date.prototype.format = function(format){</div><div class="line">	var o = {</div><div class="line">		<span class="string">"M+"</span> : this.getMonth()+1, //month</div><div class="line">		<span class="string">"d+"</span> : this.getDate(), //day</div><div class="line">		<span class="string">"h+"</span> : this.getHours(), //hour</div><div class="line">		<span class="string">"m+"</span> : this.getMinutes(), //minute</div><div class="line">		<span class="string">"s+"</span> : this.getSeconds(), //second</div><div class="line">		<span class="string">"q+"</span> : Math.floor((this.getMonth()+3)/3), //quarter</div><div class="line">		<span class="string">"S"</span> : this.getMilliseconds() //millisecond</div><div class="line">	}</div><div class="line">	if(/(y+)/.test(format)) format=format.replace(RegExp.$1,(this.getFullYear()+<span class="string">""</span>).substr(4- RegExp.$1.length));</div><div class="line">	for(var k in o)if(new RegExp(<span class="string">"("</span>+ k +<span class="string">")"</span>).test(format))</div><div class="line">	format = format.replace(RegExp.$1,RegExp.$1.length==1? o[k] : (<span class="string">"00"</span>+ o[k]).substr((<span class="string">""</span>+ o[k]).length));</div><div class="line">	return format;</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<h3 id="公共工具类">公共工具类</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** 公共工具类 ***************/</span></div><div class="line"><span class="keyword">var</span> PublicUtil ={</div><div class="line">	isNotEmpty:	 <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span>{</div><div class="line">		<span class="keyword">return</span> !<span class="keyword">this</span>.isEmpty(val);</div><div class="line">	},</div><div class="line">	isEmpty: <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span>{</div><div class="line">		<span class="keyword">if</span> ((val==<span class="literal">null</span> || <span class="keyword">typeof</span>(val)==<span class="string">"undefined"</span>)|| (<span class="keyword">typeof</span>(val)==<span class="string">"string"</span>&&val==<span class="string">""</span>&&val!=<span class="string">"undefined"</span>)){</div><div class="line">		   <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		}<span class="keyword">else</span>{</div><div class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">		}</div><div class="line">	},</div><div class="line">	isDebug: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.isNotEmpty(configDebug)&&configDebug==<span class="string">"true"</span>){</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		}<span class="keyword">else</span>{</div><div class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">		}</div><div class="line">	},</div><div class="line">	<span class="comment">//去除元素内所有内容 strIds："#id1,#id2,#id3"</span></div><div class="line">	emptyHtml: <span class="function"><span class="keyword">function</span><span class="params">(strIds)</span></span>{</div><div class="line">		<span class="keyword">try</span>{</div><div class="line">			<span class="keyword">var</span> ids = strIds.trim(<span class="string">","</span>).split(<span class="string">","</span>);</div><div class="line">			$(ids).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">				<span class="keyword">var</span> obj = $(<span class="keyword">this</span>.toString());</div><div class="line">				<span class="keyword">if</span>(obj.length&gt;<span class="number">0</span>){</div><div class="line">					$(obj).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">						$(<span class="keyword">this</span>).html(<span class="string">""</span>);</div><div class="line">					});</div><div class="line">				}<span class="keyword">else</span>{</div><div class="line">					obj.html(<span class="string">""</span>);</div><div class="line">				}</div><div class="line">			});</div><div class="line">		}<span class="keyword">catch</span>(ex){</div><div class="line">			<span class="keyword">if</span>(PublicUtil.isDebug()){</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"js方法：【PublicUtil.emptyHtml(strIds)】，error！"</span>);</div><div class="line">			}</div><div class="line">		}</div><div class="line">	},</div><div class="line">	<span class="comment">//去除元素的值 strIds："#id1,#id2,#id3"</span></div><div class="line">	emptyValue: <span class="function"><span class="keyword">function</span><span class="params">(strIds)</span></span>{</div><div class="line">		<span class="keyword">try</span>{</div><div class="line">			<span class="keyword">var</span> ids = strIds.trim(<span class="string">","</span>).split(<span class="string">","</span>);</div><div class="line">			$(ids).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">				<span class="keyword">var</span> obj = $(<span class="keyword">this</span>.toString());</div><div class="line">				<span class="keyword">if</span>(obj.length&gt;<span class="number">0</span>){</div><div class="line">					$(obj).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">						$(<span class="keyword">this</span>).val(<span class="string">""</span>);</div><div class="line">					});</div><div class="line">				}<span class="keyword">else</span>{</div><div class="line">					obj.val(<span class="string">""</span>);</div><div class="line">				}</div><div class="line">			});</div><div class="line">		}<span class="keyword">catch</span>(ex){</div><div class="line">			<span class="keyword">if</span>(PublicUtil.isDebug()){</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"js方法：【PublicUtil.emptyValue(strIds)】，error！"</span>);</div><div class="line">			}</div><div class="line">		}</div><div class="line">	},</div><div class="line">	<span class="comment">//去除Textarea内所有内容 strIds："#id1,#id2,#id3"</span></div><div class="line">	emptyTextarea: <span class="function"><span class="keyword">function</span><span class="params">(strIds)</span></span>{</div><div class="line">		<span class="keyword">try</span>{</div><div class="line">			<span class="keyword">var</span> ids = strIds.trim(<span class="string">","</span>).split(<span class="string">","</span>);</div><div class="line">			$(ids).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">				<span class="keyword">var</span> obj = $(<span class="keyword">this</span>.toString());</div><div class="line">				<span class="keyword">if</span>(obj.length&gt;<span class="number">0</span>){</div><div class="line">					$(obj).each(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">						$(<span class="keyword">this</span>).empty();</div><div class="line">						$(<span class="keyword">this</span>).val(<span class="string">""</span>);</div><div class="line">					});</div><div class="line">				}<span class="keyword">else</span>{</div><div class="line">					obj.empty();</div><div class="line">					obj.val(<span class="string">""</span>);</div><div class="line">				}</div><div class="line">			});</div><div class="line">		}<span class="keyword">catch</span>(ex){</div><div class="line">			<span class="keyword">if</span>(PublicUtil.isDebug()){</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"js方法：【PublicUtil.emptyTextarea(strIds)】，error！"</span>);</div><div class="line">			}</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="String工具类">String工具类</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** String工具类***************/</span></div><div class="line"><span class="comment">//trim去掉字符串两边的指定字符,默去空格</span></div><div class="line"><span class="built_in">String</span>.prototype.trim = <span class="function"><span class="keyword">function</span><span class="params">(tag)</span> </span>{</div><div class="line">	<span class="keyword">if</span> (!tag) { </div><div class="line">		tag = <span class="string">'\\s'</span>;</div><div class="line">	}<span class="keyword">else</span> { </div><div class="line">		<span class="keyword">if</span> (tag == <span class="string">'\\'</span>) { </div><div class="line">		tag = <span class="string">'\\\\'</span>; </div><div class="line">	} <span class="keyword">else</span> <span class="keyword">if</span> (tag == <span class="string">','</span> || tag == <span class="string">'|'</span> || tag == <span class="string">';'</span>) { </div><div class="line">			tag = <span class="string">'\\'</span> + tag; </div><div class="line">		}<span class="keyword">else</span> { </div><div class="line">			tag = <span class="string">'\\s'</span>; </div><div class="line">		} </div><div class="line">	}</div><div class="line">	<span class="built_in">eval</span>(<span class="string">'var reg=/(^'</span> + tag + <span class="string">'+)|('</span> + tag + <span class="string">'+$)/g;'</span>); </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(reg, <span class="string">''</span>);</div><div class="line">};</div><div class="line"><span class="comment">//字符串截取后面加入...</span></div><div class="line"><span class="built_in">String</span>.prototype.interceptString = <span class="function"><span class="keyword">function</span><span class="params">(len)</span> </span>{</div><div class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.length &gt; len) {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.substring(<span class="number">0</span>, len) + <span class="string">"..."</span>;</div><div class="line">	} <span class="keyword">else</span> {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">	}</div><div class="line">}</div><div class="line"><span class="comment">//将一个字符串用给定的字符变成数组</span></div><div class="line"><span class="built_in">String</span>.prototype.toArray = <span class="function"><span class="keyword">function</span><span class="params">(tag)</span> </span>{</div><div class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.indexOf(tag) != -<span class="number">1</span>) {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.split(tag);</div><div class="line">	}<span class="keyword">else</span> {</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">this</span> != <span class="string">''</span>) {</div><div class="line">			<span class="keyword">return</span> [<span class="keyword">this</span>.toString()];</div><div class="line">		}<span class="keyword">else</span> {</div><div class="line">			<span class="keyword">return</span> [];</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"><span class="comment">//只留下数字(0123456789)</span></div><div class="line"><span class="built_in">String</span>.prototype.toNumber= <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/\D/g</span>, <span class="string">""</span>); </div><div class="line">}</div><div class="line"><span class="comment">//保留中文  </span></div><div class="line"><span class="built_in">String</span>.prototype.toCN= <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{  </div><div class="line">	<span class="keyword">var</span> regEx = <span class="regexp">/[^\u4e00-\u9fa5\uf900-\ufa2d]/g</span>;  </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(regEx, <span class="string">''</span>);  </div><div class="line">}</div><div class="line"><span class="comment">//转成int</span></div><div class="line"><span class="built_in">String</span>.prototype.toInt= <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{  </div><div class="line">	<span class="keyword">var</span> temp = <span class="keyword">this</span>.replace(<span class="regexp">/\D/g</span>, <span class="string">""</span>);</div><div class="line">	<span class="keyword">return</span> <span class="built_in">isNaN</span>(<span class="built_in">parseInt</span>(temp)) ? <span class="keyword">this</span>.toString() : <span class="built_in">parseInt</span>(temp);  </div><div class="line">}</div><div class="line"><span class="comment">//是否是以XX开头</span></div><div class="line"><span class="built_in">String</span>.prototype.startsWith= <span class="function"><span class="keyword">function</span><span class="params">(tag)</span></span>{</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.substring(<span class="number">0</span>, tag.length) == tag;</div><div class="line">}</div><div class="line"><span class="comment">//是否已XX结尾</span></div><div class="line"><span class="built_in">String</span>.prototype.endWith= <span class="function"><span class="keyword">function</span><span class="params">(tag)</span></span>{</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.substring(<span class="keyword">this</span>.length - tag.length) == tag;</div><div class="line">}</div><div class="line"><span class="comment">//StringBuffer</span></div><div class="line"><span class="keyword">var</span> StringBuffer = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">	<span class="keyword">this</span>._strs = <span class="keyword">new</span> <span class="built_in">Array</span>; </div><div class="line">};</div><div class="line">StringBuffer.prototype.append = <span class="function"><span class="keyword">function</span> <span class="params">(str)</span> </span>{ </div><div class="line">	<span class="keyword">this</span>._strs.push(str); </div><div class="line">}; </div><div class="line">StringBuffer.prototype.toString = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{ </div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>._strs.join(<span class="string">""</span>); </div><div class="line">};</div><div class="line"><span class="built_in">String</span>.prototype.replaceAll = <span class="function"><span class="keyword">function</span><span class="params">(s1,s2)</span></span>{</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(s1,<span class="string">"gm"</span>),s2);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="Arry">Arry</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** Arry ***************/</span></div><div class="line"><span class="comment">//根据数据取得再数组中的索引</span></div><div class="line"><span class="built_in">Array</span>.prototype.getIndex = <span class="function"><span class="keyword">function</span><span class="params">(obj)</span></span>{</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) {</div><div class="line">		<span class="keyword">if</span> (obj == <span class="keyword">this</span>[i]) {</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">}</div><div class="line"><span class="comment">//移除数组中的某元素</span></div><div class="line"><span class="built_in">Array</span>.prototype.remove= <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> </span>{</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) {</div><div class="line">		<span class="keyword">if</span> (obj == <span class="keyword">this</span>[i]) {</div><div class="line">			<span class="keyword">this</span>.splice(i, <span class="number">1</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">}</div><div class="line"><span class="comment">//判断元素是否在数组中</span></div><div class="line"><span class="built_in">Array</span>.prototype.contains= <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> </span>{</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) {</div><div class="line">		<span class="keyword">if</span> (obj == <span class="keyword">this</span>[i]) {</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="浏览器相关操作">浏览器相关操作</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/********************** 浏览器相关操作 ***************/</span></div><div class="line"><span class="comment">//进入全屏模式,  判断各种浏览器，找到正确的方法</span></div><div class="line"><span class="keyword">var</span> launchFullScreen = <span class="function"><span class="keyword">function</span> <span class="params">(element)</span> </span>{</div><div class="line">  <span class="keyword">if</span>(element.requestFullscreen) {</div><div class="line">    element.requestFullscreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(element.mozRequestFullScreen) {</div><div class="line">    element.mozRequestFullScreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(element.webkitRequestFullscreen) {</div><div class="line">    element.webkitRequestFullscreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(element.msRequestFullscreen) {</div><div class="line">    element.msRequestFullscreen();</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">}</div><div class="line"><span class="comment">//退出全屏模式</span></div><div class="line"><span class="keyword">var</span> exitFullScreen = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">  <span class="keyword">if</span>(<span class="built_in">document</span>.exitFullscreen) {</div><div class="line">    <span class="built_in">document</span>.exitFullscreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.mozCancelFullScreen) {</div><div class="line">    <span class="built_in">document</span>.mozCancelFullScreen();</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.webkitExitFullscreen) {</div><div class="line">    <span class="built_in">document</span>.webkitExitFullscreen();</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">//cookie操作</span></div><div class="line"><span class="keyword">var</span> CookieUtil={</div><div class="line">	path: <span class="string">"/"</span>,</div><div class="line">	domain: <span class="string">'demo.j2ee.com'</span>,</div><div class="line">	add: <span class="function"><span class="keyword">function</span><span class="params">(name,val)</span></span>{</div><div class="line">		$.cookie(name, val, {expires: <span class="number">7</span>, path: <span class="keyword">this</span>.path, domain: <span class="keyword">this</span>.domain, secure: <span class="literal">true</span>});</div><div class="line">	},</div><div class="line">	remove: <span class="function"><span class="keyword">function</span><span class="params">(name)</span></span>{</div><div class="line">		$.cookie(name, <span class="literal">null</span>,{path: <span class="keyword">this</span>.path, domain: <span class="keyword">this</span>.domain});</div><div class="line">	},</div><div class="line">	get: <span class="function"><span class="keyword">function</span><span class="params">(name)</span></span>{</div><div class="line">		 $.cookie(name,{path: <span class="keyword">this</span>.path, domain: <span class="keyword">this</span>.domain});</div><div class="line">	}</div><div class="line">}</div><div class="line"><span class="comment">//error</span></div><div class="line"><span class="keyword">var</span> error={</div><div class="line">	 e_404: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		 alertMessage(<span class="string">"404"</span>,<span class="string">"未找到改页面！"</span>,<span class="string">"warning"</span>);</div><div class="line">	 },</div><div class="line">	 e_500: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		 alertMessage(<span class="string">"500"</span>,<span class="string">"服务器内部错误！"</span>,<span class="string">"error"</span>);</div><div class="line">	 },</div><div class="line">	 e_403: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">		 alertMessage(<span class="string">"403"</span>,<span class="string">"权限不足！"</span>,<span class="string">"warning"</span>);</div><div class="line">	 }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+  
+	</div>
+		
+	<footer class="article-footer clearfix">
+	
+  <div class="article-tags">
+  
+  <span>标签：</span> <a href="/tags/javascript/">javascript</a>
+  </div>
+
+
+<div class="article-categories">
+  <span>分类：</span>
+  <a class="article-category-link" href="/categories/前段/">前段</a>
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>	
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>	
+    <a href="javascript:void(0);" 
+		class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" >更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"shenjixiang"},hideMore:true}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1937900" charset="utf-8"></script>      
+
+	
+	</div>
+	</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+	 <strong>上一篇：</strong>
+	<a href="/2014/12/09/java-load-dll/" title="java调用dll几种方式总结">
+	<span>java调用dll几种方式总结</span>
+</a>
+</div>
+
+
+<div class="next">
+<strong>下一篇：</strong>
+<a href="/2014/12/02/hibernate-cache/"  title="hibernate的缓存机制">
+ 
+ <span>hibernate的缓存机制
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<div class="article-comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="js常用方法使用总结" data-title="js常用方法使用总结" data-url="http://www.shenjixiang.cn/2014/12/06/js-commonly/"></div>
+	<!-- 多说评论框 end -->
+
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shenjx"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = "/js/embed.js";
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+</div>
+
+</div>  
+      
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#说明："><span class="toc-number">1.</span> <span class="toc-text">说明：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意："><span class="toc-number">2.</span> <span class="toc-text">注意：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date工具类"><span class="toc-number"></span> <span class="toc-text">Date工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公共工具类"><span class="toc-number"></span> <span class="toc-text">公共工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String工具类"><span class="toc-number"></span> <span class="toc-text">String工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arry"><span class="toc-number"></span> <span class="toc-text">Arry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器相关操作"><span class="toc-number"></span> <span class="toc-text">浏览器相关操作</span></a>
+  </div>
+
+<div id="asidepart">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	
+	<section class="author-info">
+		
+			<p> 个人的</p>
+		
+		
+			<p>	java技术分享博客</p>
+		
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/shenjixiang" target="_blank" title="weibo"></a>
+		
+				
+		
+		<a href="https://github.com/shenjixiang" target="_blank" title="github"></a>
+		
+		
+		
+		<a href="http://shenjixiang.cn" target="_blank" title="twitter"></a>
+		
+	</div>
+</div>
+<aside class="clearfix">
+
+
+  
+<div class="tagslist">
+	 <p class="asidetitle">赞助商</p> 
+	<a href="http://www.henghost.com/hc/index.html" target="_blank">
+		<img src='http://www.shenjixiang.cn/image/advertisement/hengchuang.jpg' />
+	</a>
+</div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">站内搜索</p>
+		<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank" style="margin-top:0.3em;">		
+			<input name="s" type="hidden" value="6391109077580778314" >
+			<input type="text"  name="q" size="30" placeholder="回车搜索"><br>
+		</form>
+</div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li class="categorieslist-li"><a href="/categories/HBase/" title="HBase">HBase<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Mahout/" title="Mahout">Mahout<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/Pig/" title="Pig">Pig<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/extJs/" title="extJs">extJs<sup>5</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hadoop/" title="hadoop">hadoop<sup>6</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/hive/" title="hive">hive<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/j2EE/" title="j2EE">j2EE<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/zookeeper/" title="zookeeper">zookeeper<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/主机/" title="主机">主机<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/分布式/" title="分布式">分布式<sup>2</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/前段/" title="前段">前段<sup>1</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/基础/" title="基础">基础<sup>11</sup></a></li>
+		
+			<li class="categorieslist-li"><a href="/categories/数据库/" title="数据库">数据库<sup>18</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">热评文章</h3>	
+		<div class="ds-top-threads" data-range="monthly" data-num-items="9">			
+		</div>	
+  </div>
+
+
+  
+  <div class="recent_posts">
+    <h3 class="asidetitle">最新评论</h3>
+     <div class="widget" style="margin-top:0.2em;">
+      <div class="ds-recent-comments" data-num-items="6" data-show-avatars="0" data-show-time="1" data-show-title="1" data-show-admin="0" data-excerpt-length="15"></div>
+  </div>
+  </div>
+
+
+  <div class="rsspart">
+	<p class="asidetitle">RSS</p>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	<p class="copyright">
+		<label>联系方式：1038342063@qq.com</label>
+	</P>
+	<p class="copyright">
+		<label><a href="http://zgboke.com" target="_blank" title="收录国内优秀独立博客！">中国博客联盟</a>&nbsp;|
+		<label><a href="http://lusongsong.com/" target="_blank">卢松松</a></label>&nbsp;|
+		<label><a href="http://www.wangwangkui.com/" target="_blank">王望奎博客</a></label>&nbsp;|
+		<label><a href="http://koubei.baidu.com/s/www.shenjixiang.cn" target="_blank" title="沈吉祥的百度口碑">我的百度口碑</a></label>&nbsp;|
+		<label><a href="http://zgboke.com/site/www.shenjixiang.cn.html" target="_blank" title="沈吉祥的博客联盟">我的博客联盟</a></label>&nbsp;|
+		<label><a href="http://tool.chinaz.com/" target="_blank" title="站长工具">站长工具</a></label>&nbsp;|
+		<label><a href="http://www.shenjixiang.cn/say" target="_blank" title="沈吉祥的留言">留言版</a></label>
+	</P>
+	<p class="copyright">版权所有&nbsp;©&nbsp;2014
+	Powered by  <a href="http://www.shenjixiang.cn/about" target="_blank" title="沈吉祥">沈吉祥</a>&nbsp;&nbsp;All Rights Reserved.
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"shenjx"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = "/js/embed.js";
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<!-- 百度统计 -->
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F19bb7b623acbcad20dbfc09ae6f0fd48' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+  </body>
+</html>

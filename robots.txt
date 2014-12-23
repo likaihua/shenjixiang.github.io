@@ -1,0 +1,11 @@
+User-agent: *
+
+Disallow: /css/
+
+Disallow: /js/
+
+Disallow: /images/
+
+Disallow: /img/
+
+sitemap: http://www.shenjixiang.cn/sitemap.xml
